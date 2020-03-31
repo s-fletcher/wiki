@@ -32,7 +32,7 @@ function Index() {
                 var name = data.pages[i].name;
                 return (
                     <div className="item" key={id}>
-                        <Link href={`/${id}`}>
+                        <Link href={`/[page]`} as={`/${id}`}>
                             <a>{name}</a>
                         </Link>
                     </div>

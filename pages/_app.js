@@ -17,8 +17,13 @@ const authLink = new ApolloLink((operation, forward) => {
     return forward(operation);
 });
 
+console.log(process.env.NODE_ENV);
+
 const httpLink = new HttpLink({
-    uri: "https://hacklahoma-wiki-yoga.herokuapp.com/",
+    uri:
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:4444"
+            : "https://hacklahoma-wiki-yoga.herokuapp.com/",
     credentials: "include",
     fetch,
 });
