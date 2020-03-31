@@ -18,7 +18,7 @@ const authLink = new ApolloLink((operation, forward) => {
 });
 
 const httpLink = new HttpLink({
-    uri: "https://us1.prisma.sh/hacklahoma/wiki/dev",
+    uri: "https://hacklahoma-wiki-yoga.herokuapp.com/",
     credentials: "include",
     fetch,
 });
