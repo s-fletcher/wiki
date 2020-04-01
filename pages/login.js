@@ -25,9 +25,7 @@ function Login() {
             <div className="content">
                 <h1>Hacklahoma's team knowledge base</h1>
                 <a
-                    href={
-                        "https://slack.com/oauth/authorize?scope=identity.basic&client_id=244872783015.954421738912"
-                    }
+                    href={`https://slack.com/oauth/authorize?scope=identity.basic&client_id=${process.env.SLACK_CLIENT_ID}`}
                 >
                     <img
                         alt="Sign in with Slack"

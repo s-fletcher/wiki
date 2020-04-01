@@ -1,19 +1,30 @@
 import { useQuery, gql } from "@apollo/client";
 import Head from "next/head";
-import Link from "next/link";
+import styled from 'styled-components'
 import NavBar from "../components/NavBar";
+import Category from "../components/Dashboard/Category";
 
-const PAGES = gql`
+const CATEGORIES = gql`
     {
-        pages {
+        categories {
             id
             name
+            index
+            emoji
+            pages {
+                id
+                name
+                status
+                index
+            }
         }
     }
 `;
 
+const StyledIndex = styled.div``
+
 function Index() {
-    const { loading, error, data } = useQuery(PAGES);
+    const { loading, error, data } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
     if (loading) return <p>Loading...</p>;
@@ -21,24 +32,23 @@ function Index() {
     if (error) return <p>{error.message}</p>;
     /** RETURN Dashboard */
     return (
-        <div>
-            {/* <Head>
+        <StyledIndex>
+            <Head>
                 <title>Wiki</title>
-            </Head> */}
+            </Head>
             <NavBar />
-            Dashboard
-            {Object.keys(data.pages).map(i => {
-                var id = data.pages[i].id;
-                var name = data.pages[i].name;
+            {Object.keys(data.categories).map(i => {
                 return (
-                    <div className="item" key={id}>
-                        <Link href={`/[page]`} as={`/${id}`}>
-                            <a>{name}</a>
-                        </Link>
-                    </div>
+                    <Category
+                        key={data.categories[i].name}
+                        name={data.categories[i].name}
+                        index={data.categories[i].index}
+                        emoji={data.categories[i].emoji}
+                        pages={data.categories[i].pages}
+                    />
                 );
             })}
-        </div>
+        </StyledIndex>
     );
 }
 
