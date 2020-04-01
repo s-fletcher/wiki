@@ -1,7 +1,5 @@
 {
-    "build": {
-        "env": {
-            "PRISMA_ENDPOINT": "@prisma_endpoint"
-        }
+    "env": {
+        "PRISMA_ENDPOINT": "@prisma_endpoint"
     }
 }
