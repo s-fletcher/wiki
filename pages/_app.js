@@ -3,7 +3,7 @@ import App, { Container } from "next/app";
 import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
 import "../public/defaults.css";
 import "../public/nprogress.css";
-import NavBar from '../components/NavBar'
+import { ThemeProvider } from 'styled-components'
 
 // const tokenValue =
 //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJ3aWtpQGRldiIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE1ODU1MzQzMTksImV4cCI6MTU4NjEzOTExOX0.DzfNUwNW37ahzn_X6oSXItfXhh6TPyH9svNF30AZltU";
@@ -33,6 +33,12 @@ const client = new ApolloClient({
     link: httpLink,
 });
 
+const lightTheme = {
+    gray: "#828690",
+    lightGray: "#F1F1F0",
+    mobileWidth: "480px",
+};
+
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         let pageProps = {};
@@ -50,7 +56,9 @@ class MyApp extends App {
 
         return (
             <ApolloProvider client={client}>
-                <Component {...pageProps} />
+                <ThemeProvider theme={lightTheme}>
+                    <Component {...pageProps} />
+                </ThemeProvider>
             </ApolloProvider>
         );
     }
