@@ -20,9 +20,9 @@ import { ThemeProvider } from 'styled-components'
 
 const httpLink = new HttpLink({
     uri:
-        process.env.NODE_ENV === "development"
+        process.env.NODE_ENV !== "development"
             ? "http://localhost:4444"
-            : process.env.PRISMA_ENDPOINT,
+            : "***REMOVED***",
     credentials: "include",
     fetch,
 });
