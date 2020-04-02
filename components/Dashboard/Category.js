@@ -3,6 +3,10 @@ import PageItem from "./PageItem";
 
 const StyledCategory = styled.div`
     margin-bottom: 20px; /* Spacing between surrounding categories */
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    break-inside: avoid;
+
     .heading {
         display: inline-block;
         h1 {
