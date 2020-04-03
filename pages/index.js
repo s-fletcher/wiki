@@ -35,16 +35,18 @@ const StyledIndex = styled.div`
     }
 `;
 
+import NProgress from "nprogress";
+
 function Index() {
     const { loading, error, data } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
-    if (loading) return (
-                     <div>
-                         <NavBar />
-                         <p>Loading...</p>
-                     </div>
-                 );
+    if (loading)
+        return (
+            <div>
+                <NavBar />
+            </div>
+        );
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN Dashboard */
