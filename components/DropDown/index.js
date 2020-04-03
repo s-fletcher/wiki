@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StyledDropDown = styled.div`
     position: fixed;
     top: 70px;
-    /* Insert logic below */
     right: ${props => props.right};
     background: rgb(248, 248, 248);
     border: 1px solid rgb(213, 213, 213);
