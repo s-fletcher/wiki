@@ -21,7 +21,13 @@ function Page() {
     });
 
     /** RETURN loading */
-    if (loading) return <p>Loading...</p>;
+    if (loading)
+        return (
+            <div>
+                <NavBar settings add filter search />
+                <p>Loading...</p>
+            </div>
+        );
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN 404 when page does not exist */
@@ -32,6 +38,7 @@ function Page() {
             <Head>
                 <title>{data.page.name} • Wiki</title>
             </Head>
+            <NavBar settings add search />
             <Link href="/">
                 <a>Home</a>
             </Link>
