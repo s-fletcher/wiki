@@ -6,7 +6,7 @@ const StyledLogo = styled.div`
     align-items: center;
     display: inline-flex;
     /* background: red; */
-    margin: 13px 0 13px 40px;
+    margin: 13px 0 13px 25px;
     img {
         height: 100%;
     }
