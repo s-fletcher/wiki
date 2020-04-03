@@ -15,6 +15,9 @@ const StyledLogo = styled.div`
         font-size: 1.25em;
         margin-left: 5px;
     }
+    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+        display: none;
+    }
 `;
 
 function Logo() {
