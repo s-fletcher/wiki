@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import Link from "next/link";
 
-const StyledLogo = styled.div`
+const StyledLogo = styled.a`
     height: calc(100% - 26px);
     cursor: pointer;
     align-items: center;
@@ -22,10 +23,12 @@ const StyledLogo = styled.div`
 
 function Logo() {
     return (
-        <StyledLogo>
-            <img src="/assets/images/logo.png" alt="logo" />
-            <p>Wiki</p>
-        </StyledLogo>
+        <Link href="/">
+            <StyledLogo>
+                <img src="/assets/images/logo.png" alt="logo" />
+                <p>Wiki</p>
+            </StyledLogo>
+        </Link>
     );
 }
 

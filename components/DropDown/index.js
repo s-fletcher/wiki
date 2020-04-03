@@ -8,13 +8,13 @@ const StyledDropDown = styled.div`
     border: 1px solid rgb(213, 213, 213);
     border-radius: 5px;
     box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.05);
-    padding: 6px 0;
+    padding: 7px 0;
     text-align: left;
     z-index: 100;
     min-width: 180px;
     p {
-        padding: 6px 20px;
-        font-size: 0.95em;
+        padding: 5px 20px;
+        font-size: 0.85em;
         cursor: pointer;
     }
     p:hover {
@@ -57,7 +57,7 @@ function DropDown(props) {
                 <p>filter4</p>
                 <p>filter5</p>
                 <div className="divider" />
-                <p>Clear filters</p>
+                <p>Clear Filters</p>
             </StyledDropDown>
         );
     }

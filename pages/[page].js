@@ -21,7 +21,7 @@ function Page(props) {
     });
 
     /** RETURN loading */
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <NavBar />;
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN 404 when page does not exist */
