@@ -34,9 +34,6 @@ const StyledDropDown = styled.div`
 
 function DropDown(props) {
     const [modal, setModal] = React.useState();
-    React.useEffect(() => {
-        console.log(modal);
-    });
     if (modal === "addPage") return <Modal setModal={setModal} />;
     if (props.type === "settings") {
         return (
