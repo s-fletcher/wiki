@@ -26,10 +26,12 @@ function MyApp({ Component, pageProps }) {
     if (Component.name === "Index") {
         var navProps = { search: true, filter: true, add: true, settings: true };
     }
+    console.log("DEBUG: " + Component.name);
+    
     return (
         <ApolloProvider client={client}>
             <ThemeProvider theme={lightTheme}>
-                <NavBar {...navProps} />
+                <NavBar search filter add settings />
                 <Component {...pageProps} />
             </ThemeProvider>
         </ApolloProvider>
