@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IoMdSettings, IoMdAdd } from "react-icons/io";
+import { IoMdSettings } from "react-icons/io";
 import { FaFilter, FaPlus } from "react-icons/fa";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
