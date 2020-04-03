@@ -42,15 +42,23 @@ function Buttons(props) {
      * @param newType the type of dropdown to render
      */
     function handleClick(newType) {
-        if (type === newType) setType(null);
-        else setType(newType);
+        if (type === newType) {
+            setType(null);
+            return;
+        } else setType(newType);
         // An event listener that self destructs after use and closes dropdown when clicking
         window.addEventListener(
             "click",
             function listener(event) {
-                // Makes sure that the element clicked is not the same button to open
-                if (!document.getElementById(newType).contains(event.target)) setType(null);
-                window.removeEventListener("click", listener, true);
+                // Keeps listener alive if clicked on dropdown, destroy if not.
+                if (!document.getElementById("dropdown").contains(event.target))
+                    window.removeEventListener("click", listener, true);
+                // Makes sure that the element clicked is not the same button to open or the dropdown
+                if (
+                    !document.getElementById(newType).contains(event.target) &&
+                    !document.getElementById("dropdown").contains(event.target)
+                )
+                    setType(null);
             },
             true
         );
