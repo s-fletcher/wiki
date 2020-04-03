@@ -5,8 +5,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const StyledButtons = styled.div`
-    /* background: red; */
     margin-right: 10px;
+    white-space: nowrap;
     .filter {
         height: 20px;
         width: 20px;
@@ -22,10 +22,13 @@ const StyledButtons = styled.div`
         width: 26px;
     }
     .icon {
-        transition: color .5s;
+        transition: color 0.5s;
     }
     .icon:hover {
         color: ${props => props.theme.blue};
+    }
+    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+        margin-right: 0;
     }
 `;
 

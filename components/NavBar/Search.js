@@ -6,7 +6,7 @@ const StyledSearch = styled.div`
     align-items: center;
     flex-grow: 1;
     max-width: 600px;
-    margin: 0 40px;
+    margin: 0 10px 0 30px;
     .icon {
         color: ${props => props.theme.gray};
         width: 26px;
@@ -23,7 +23,10 @@ const StyledSearch = styled.div`
         outline: none;
     }
     input::placeholder {
-        opacity: .7;
+        opacity: 0.7;
+    }
+    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+        margin-left: 20px;
     }
 `;
 
