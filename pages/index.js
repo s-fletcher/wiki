@@ -35,13 +35,11 @@ const StyledIndex = styled.div`
     }
 `;
 
-import NProgress from "nprogress";
-
-function Index() {
+function Index(props) {
     const { loading, error, data } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
-    if (loading) return <NavBar />;
+    if (loading) return <p>Loading...</p>;
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN Dashboard */
@@ -50,7 +48,7 @@ function Index() {
             <Head>
                 <title>Wiki</title>
             </Head>
-            <NavBar settings add filter search />
+            {/* <NavBar settings add filter search /> */}
             <StyledIndex>
                 {Object.keys(data.categories).map(i => {
                     return (

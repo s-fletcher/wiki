@@ -1,68 +1,39 @@
-import fetch from "node-fetch";
-import App, { Container } from "next/app";
-import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
+import App from "next/app";
+import { ApolloProvider } from "@apollo/client";
+import { ThemeProvider } from "styled-components";
 import "../public/defaults.css";
 import "../public/nprogress.css";
-import { ThemeProvider } from 'styled-components'
+import client from "../lib/client";
+import { lightTheme, darkTheme } from "../lib/themes";
+import NavBar from "../components/NavBar";
 
-// const tokenValue =
-//     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJ3aWtpQGRldiIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE1ODU1MzQzMTksImV4cCI6MTU4NjEzOTExOX0.DzfNUwNW37ahzn_X6oSXItfXhh6TPyH9svNF30AZltU";
+// class MyApp extends App {
+//     render() {
+//         const { Component, pageProps } = this.props;
 
-// const authLink = new ApolloLink((operation, forward) => {
-//     // add the authorization to the headers
-//     operation.setContext({
-//         headers: {
-//             authorization: tokenValue ? `Bearer ${tokenValue}` : "",
-//         },
-//     });
-//     return forward(operation);
-// });
+//         return (
+//             <ApolloProvider client={client}>
+//                 <ThemeProvider theme={lightTheme}>
+//                     <NavBar search />
+//                     <Component {...pageProps} />
+//                 </ThemeProvider>
+//             </ApolloProvider>
+//         );
+//     }
+// }
 
-const httpLink = new HttpLink({
-    uri:
-        process.env.NODE_ENV === "development"
-            ? "http://localhost:4444"
-            : "***REMOVED***",
-    credentials: "include",
-    fetch,
-});
-
-const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    // link: authLink.concat(httpLink),
-    link: httpLink,
-});
-
-const lightTheme = {
-    blue: "rgb(84, 139, 206)",
-    gray: "rgb(129, 134, 145)",
-    lightGray: "#F1F1F0",
-    mobileWidth: "480px",
-};
-
-class MyApp extends App {
-    static async getInitialProps({ Component, ctx }) {
-        let pageProps = {};
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
-        
-        // exposes the query to the user
-        pageProps.query = ctx.query;
-        return { pageProps };
+function MyApp({ Component, pageProps }) {
+    if (Component.name === "Index") {
+        var navProps = { search: true, filter: true, add: true, settings: true };
     }
-
-    render() {
-        const { Component, pageProps } = this.props;
-
-        return (
-            <ApolloProvider client={client}>
-                <ThemeProvider theme={lightTheme}>
-                    <Component {...pageProps} />
-                </ThemeProvider>
-            </ApolloProvider>
-        );
-    }
+    return (
+        <ApolloProvider client={client}>
+            <ThemeProvider theme={lightTheme}>
+                <NavBar {...navProps} />
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </ApolloProvider>
+    );
 }
 
 export default MyApp;

@@ -26,4 +26,10 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    color: #1d1d1d;
+}
+
+.MuiButton-label {
+    text-transform: none;
+    font-family: "Avenir", "Helvetica Neue", sans-serif;
 }
