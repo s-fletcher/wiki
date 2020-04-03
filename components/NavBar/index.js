@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "./Logo";
 import Buttons from "./Buttons";
+import Search from "./Search";
 
 const StyledNavBar = styled.div`
     width: 100vw;
@@ -21,6 +22,7 @@ function NavBar(props) {
         <StyledNavBar>
             <div className="container">
                 <Logo />
+                {props.search ? <Search /> : null}
                 <Buttons filter={props.filter} add={props.add} settings={props.settings} />
             </div>
         </StyledNavBar>
