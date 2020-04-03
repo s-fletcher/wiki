@@ -64,11 +64,6 @@ function Buttons(props) {
         );
     }
 
-    function listener() {
-        setType(null);
-        window.removeEventListener("click", () => listener());
-    }
-
     return (
         <StyledButtons>
             {props.filter ? (
