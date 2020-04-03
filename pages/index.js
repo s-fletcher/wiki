@@ -39,7 +39,12 @@ function Index() {
     const { loading, error, data } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
-    if (loading) return <p>Loading...</p>;
+    if (loading) return (
+                     <div>
+                         <NavBar />
+                         <p>Loading...</p>
+                     </div>
+                 );
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN Dashboard */
@@ -48,7 +53,7 @@ function Index() {
             <Head>
                 <title>Wiki</title>
             </Head>
-            <NavBar />
+            <NavBar settings add filter search />
             <StyledIndex>
                 {Object.keys(data.categories).map(i => {
                     return (

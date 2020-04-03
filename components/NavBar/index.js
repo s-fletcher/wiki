@@ -1,19 +1,28 @@
 import styled from "styled-components";
 import Logo from "./Logo";
+import Buttons from "./Buttons";
 
 const StyledNavBar = styled.div`
     width: 100vw;
-    height: 60px;
-    background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    justify-content: space-between;
-    display: flex;
+    background: white;
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        height: 60px;
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+    }
 `;
 
-function NavBar() {
+function NavBar(props) {
     return (
         <StyledNavBar>
-            <Logo />
+            <div className="container">
+                <Logo />
+                <Buttons filter={props.filter} add={props.add} settings={props.settings} />
+            </div>
         </StyledNavBar>
     );
 }

@@ -34,6 +34,7 @@ const client = new ApolloClient({
 });
 
 const lightTheme = {
+    blue: "#5F8BC9",
     gray: "#828690",
     lightGray: "#F1F1F0",
     mobileWidth: "480px",
