@@ -50,15 +50,19 @@ function Buttons(props) {
         window.addEventListener(
             "click",
             function listener(event) {
-                // Keeps listener alive if clicked on dropdown, destroy if not.
-                if (!document.getElementById("dropdown").contains(event.target))
+                // If clicked object is has the class of cancel close, then do nothing.
+                if (event.target.classList.contains("cancelClose")) return;
+                // If clicked object is the button that opened it, then only remove listener and let the function do it's thing.
+                if (document.getElementById(newType).contains(event.target)) {
                     window.removeEventListener("click", listener, true);
-                // Makes sure that the element clicked is not the same button to open or the dropdown
-                if (
-                    !document.getElementById(newType).contains(event.target) &&
-                    !document.getElementById("dropdown").contains(event.target)
-                )
+                    return;
+                }
+                // If all fails, clean up. (is a button without cancel close or is outside of dropdown box )
+                // Timeout is so that the button has time to activate
+                setTimeout(() => {
                     setType(null);
+                    window.removeEventListener("click", listener, true);
+                }, 10);
             },
             true
         );

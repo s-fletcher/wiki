@@ -13,7 +13,7 @@ const GET_PAGE = gql`
         }
     }
 `;
-function Page(props) {
+function Page() {
     const router = useRouter();
     const { page } = router.query;
     const { loading, error, data } = useQuery(GET_PAGE, {
@@ -21,7 +21,7 @@ function Page(props) {
     });
 
     /** RETURN loading */
-    if (loading) return <NavBar />;
+    if (loading) return <p>Loading...</p>;
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN 404 when page does not exist */
@@ -32,7 +32,6 @@ function Page(props) {
             <Head>
                 <title>{data.page.name} • Wiki</title>
             </Head>
-            <NavBar />
             <Link href="/">
                 <a>Home</a>
             </Link>

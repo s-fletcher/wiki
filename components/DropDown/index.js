@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import Settings from "./Settings";
+import Add from "./Add";
+import Filter from "./Filter";
+import Modal from "../Modal";
 
 const StyledDropDown = styled.div`
     position: fixed;
@@ -12,12 +16,12 @@ const StyledDropDown = styled.div`
     text-align: left;
     z-index: 100;
     min-width: 180px;
-    p {
+    .dropItem {
         padding: 5px 20px;
         font-size: 0.85em;
         cursor: pointer;
     }
-    p:hover {
+    .dropItem:hover {
         background: rgb(233, 233, 233);
     }
     .divider {
@@ -29,35 +33,29 @@ const StyledDropDown = styled.div`
 `;
 
 function DropDown(props) {
+    const [modal, setModal] = React.useState();
+    React.useEffect(() => {
+        console.log(modal);
+    });
+    if (modal === "addPage") return <Modal setModal={setModal} />;
     if (props.type === "settings") {
         return (
-            <StyledDropDown right='15px' id="dropdown">
-                <p>Export Data</p>
-                <p>Toggle Dark Mode</p>
-                <div className="divider" />
-                <p>Sign Out</p>
+            <StyledDropDown right="15px" className="cancelClose">
+                <Settings />
             </StyledDropDown>
         );
     }
     if (props.type === "add") {
         return (
-            <StyledDropDown right="65px" id="dropdown">
-                <p>Add Page</p>
-                <div className="divider" />
-                <p>Add Category</p>
+            <StyledDropDown right="65px" className="cancelClose">
+                <Add setModal={setModal} />
             </StyledDropDown>
         );
     }
     if (props.type === "filter") {
         return (
-            <StyledDropDown right="115px" id="dropdown">
-                <p>filter1</p>
-                <p>filter2</p>
-                <p>filter3</p>
-                <p>filter4</p>
-                <p>filter5</p>
-                <div className="divider" />
-                <p>Clear Filters</p>
+            <StyledDropDown right="115px" className="cancelClose">
+                <Filter />
             </StyledDropDown>
         );
     }

@@ -21,7 +21,6 @@ function Login() {
             <Head>
                 <title>Login • Wiki</title>
             </Head>
-            <NavBar />
             <div className="content">
                 <h1>Hacklahoma's team knowledge base</h1>
                 <a
