@@ -41,12 +41,7 @@ function Index() {
     const { loading, error, data } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
-    if (loading)
-        return (
-            <div>
-                <NavBar />
-            </div>
-        );
+    if (loading) return <NavBar />;
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN Dashboard */
