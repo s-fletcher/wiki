@@ -32,7 +32,7 @@ const StyledDropDown = styled.div`
 function DropDown(props) {
     if (props.type === "settings") {
         return (
-            <StyledDropDown right='15px'>
+            <StyledDropDown right='15px' id="dropdown">
                 <p>Export Data</p>
                 <p>Toggle Dark Mode</p>
                 <div className="divider" />
@@ -42,7 +42,7 @@ function DropDown(props) {
     }
     if (props.type === "add") {
         return (
-            <StyledDropDown right='65px'>
+            <StyledDropDown right="65px" id="dropdown">
                 <p>Add Page</p>
                 <div className="divider" />
                 <p>Add Category</p>
@@ -51,7 +51,7 @@ function DropDown(props) {
     }
     if (props.type === "filter") {
         return (
-            <StyledDropDown right="115px">
+            <StyledDropDown right="115px" id="dropdown">
                 <p>filter1</p>
                 <p>filter2</p>
                 <p>filter3</p>
