@@ -9,10 +9,10 @@ const StyledLogo = styled.a`
     /* background: red; */
     margin: 13px 0 13px 25px;
     img {
-        height: 100%;
+        height: 90%;
     }
     p {
-        font-weight: 600;
+        font-weight: 700;
         font-size: 1.25em;
         margin-left: 5px;
     }

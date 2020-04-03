@@ -8,6 +8,8 @@ import DropDown from "../DropDown";
 const StyledButtons = styled.div`
     margin-right: 10px;
     white-space: nowrap;
+    min-width: 150px;
+    text-align: right;
     .filter {
         height: 20px;
         width: 20px;
