@@ -57,12 +57,17 @@ function Buttons(props) {
                     window.removeEventListener("click", listener, true);
                     return;
                 }
-                // If all fails, clean up. (is a button without cancel close or is outside of dropdown box )
-                // Timeout is so that the button has time to activate
-                setTimeout(() => {
-                    setType(null);
-                    window.removeEventListener("click", listener, true);
-                }, 10);
+                // If clicked object is a drop item, delay so button can activate
+                if (event.target.classList.contains("dropItem")) {
+                    setTimeout(() => {
+                        setType(null);
+                        window.removeEventListener("click", listener, true);
+                    }, 100);
+                    return;
+                }
+                // Clicking on other drop downs
+                setType(null);
+                window.removeEventListener("click", listener, true);
             },
             true
         );
