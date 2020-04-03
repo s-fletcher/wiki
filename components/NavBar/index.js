@@ -2,6 +2,18 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import Buttons from "./Buttons";
 import Search from "./Search";
+import Router from "next/router";
+import NProgress from "nprogress";
+
+Router.onRouteChangeStart = () => {
+    NProgress.start();
+};
+Router.onRouteChangeComplete = () => {
+    NProgress.done();
+};
+Router.onRouteChangeError = () => {
+    NProgress.done();
+};
 
 const StyledNavBar = styled.div`
     width: 100vw;

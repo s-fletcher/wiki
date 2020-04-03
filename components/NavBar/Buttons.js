@@ -3,6 +3,7 @@ import { IoMdSettings } from "react-icons/io";
 import { FaFilter, FaPlus } from "react-icons/fa";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
+import DropDown from "../DropDown";
 
 const StyledButtons = styled.div`
     margin-right: 10px;
@@ -22,6 +23,7 @@ const StyledButtons = styled.div`
         width: 26px;
     }
     .icon {
+        z-index: 3;
         transition: color 0.5s;
     }
     .icon:hover {
@@ -33,29 +35,60 @@ const StyledButtons = styled.div`
 `;
 
 function Buttons(props) {
+    const [type, setType] = React.useState();
+
+    /**
+     * Handles click on any of the buttons
+     * @param newType the type of dropdown to render
+     */
+    function handleClick(newType) {
+        if (type === newType) setType(null);
+        else setType(newType);
+        // An event listener that self destructs after use and closes dropdown when clicking
+        window.addEventListener(
+            "click",
+            function listener(event) {
+                // Makes sure that the element clicked is not the same button to open
+                if (!document.getElementById(newType).contains(event.target)) setType(null);
+                window.removeEventListener("click", listener, true);
+            },
+            true
+        );
+    }
+
+    function listener() {
+        setType(null);
+        window.removeEventListener("click", () => listener());
+    }
+
     return (
         <StyledButtons>
             {props.filter ? (
-                <Tooltip title="Filter">
-                    <IconButton className="icon">
+                <Tooltip title={type === "filter" ? "" : "Filter"}>
+                    <IconButton id="filter" onClick={() => handleClick("filter")} className="icon">
                         <FaFilter className="filter" />
                     </IconButton>
                 </Tooltip>
             ) : null}
             {props.add ? (
-                <Tooltip title="Add">
-                    <IconButton className="icon">
+                <Tooltip title={type === "add" ? "" : "Add"}>
+                    <IconButton id="add" onClick={() => handleClick("add")} className="icon">
                         <FaPlus className="add" />
                     </IconButton>
                 </Tooltip>
             ) : null}
             {props.settings ? (
-                <Tooltip title="Settings">
-                    <IconButton className="icon">
+                <Tooltip title={type === "settings" ? "" : "Settings"}>
+                    <IconButton
+                        id="settings"
+                        onClick={() => handleClick("settings")}
+                        className="icon"
+                    >
                         <IoMdSettings className="settings" />
                     </IconButton>
                 </Tooltip>
             ) : null}
+            <DropDown type={type} />
         </StyledButtons>
     );
 }
