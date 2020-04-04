@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { CSSTransition } from "react-transition-group";
+import AddPage from "./AddPage";
 
 const Container = styled.div`
     cursor: pointer;
@@ -47,7 +49,7 @@ const Header = styled.div`
 
 const Content = styled.div`
     background: rgba(0, 0, 0, 0.01);
-    padding: 10px 20px;
+    padding: 20px 20px 30px 20px;
 `;
 
 const Footer = styled.div`
@@ -67,6 +69,10 @@ const Footer = styled.div`
         opacity: 0.9;
         transition: background-color, opacity 0.5s;
         color: white;
+        .loading {
+            margin-left: 10px;
+            color: white;
+        }
     }
     .save:hover {
         background-color: ${(props) => props.theme.blue};
@@ -75,8 +81,16 @@ const Footer = styled.div`
 `;
 
 function Modal({ setModal, modal, timeout }) {
+    const [loading, setLoading] = React.useState(false);
+
+    // Closes modal if clicking outside of container
+    function handleClick(event) {
+        if (!document.getElementsByClassName("modalContainer")[0].contains(event.target)) {
+            setModal(null);
+        }
+    }
     return (
-        <Container>
+        <Container onClick={() => handleClick(event)}>
             <StyledModal className="modalContainer">
                 <Header>
                     {/* Add Page Title */}
@@ -98,7 +112,7 @@ function Modal({ setModal, modal, timeout }) {
                 <Content>
                     {/* Add Page Content */}
                     <CSSTransition in={modal === "addPage"} timeout={timeout} unmountOnExit>
-                        <p>Add Page Content</p>
+                        <AddPage setLoading={setLoading} setModal={setModal} />
                     </CSSTransition>
                     {/* Add Category Content */}
                     <CSSTransition in={modal === "addCategory"} timeout={timeout} unmountOnExit>
@@ -113,8 +127,16 @@ function Modal({ setModal, modal, timeout }) {
                     <Button size="small" onClick={() => setModal(null)}>
                         Cancel
                     </Button>
-                    <Button className="save" size="small" variant="contained" disableElevation>
+                    <Button
+                        className="save"
+                        size="small"
+                        variant="contained"
+                        disableElevation
+                        type="submit"
+                        form="modalForm"
+                    >
                         Save
+                        {loading && <CircularProgress className="loading" size={12} />}
                     </Button>
                 </Footer>
             </StyledModal>
