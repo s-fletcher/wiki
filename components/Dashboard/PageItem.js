@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { GoPrimitiveDot } from "react-icons/go";
+import { withTheme } from "styled-components";
 
 const StyledPageItem = styled.div`
     display: flex;
@@ -19,10 +20,10 @@ const StyledPageItem = styled.div`
 
 function PageItem(props) {
     function statusColor(status) {
-        if (status === "INCOMPLETE") return "#bd2020";
-        if (status === "TRANSITION") return "#ffe063";
-        if (status === "COMPLETE") return "#36de2a";
-        else return "#000000";
+        if (status === "INCOMPLETE") return props.theme.red;
+        if (status === "TRANSITION") return props.theme.yellow;
+        if (status === "COMPLETE") return props.theme.green;
+        else return props.theme.black;
     }
     return (
         <StyledPageItem>
@@ -34,4 +35,4 @@ function PageItem(props) {
     );
 }
 
-export default PageItem;
+export default withTheme(PageItem);

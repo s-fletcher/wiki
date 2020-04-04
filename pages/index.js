@@ -36,7 +36,7 @@ const StyledIndex = styled.div`
 `;
 
 function Index(props) {
-    const { loading, error, data } = useQuery(CATEGORIES);
+    const { loading, error, data, refetch } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
     if (loading)
