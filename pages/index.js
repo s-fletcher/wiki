@@ -6,12 +6,12 @@ import Category from "../components/Dashboard/Category";
 
 const CATEGORIES = gql`
     {
-        categories {
+        categories(orderBy: index_ASC) {
             id
             name
             index
             emoji
-            pages {
+            pages(orderBy: index_ASC) {
                 id
                 name
                 status
