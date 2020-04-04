@@ -7,13 +7,12 @@ import Category from "../components/Dashboard/Category";
 const CATEGORIES = gql`
     {
         categories(orderBy: index_ASC) {
-            id
             name
             index
             emoji
             pages(orderBy: index_ASC) {
-                id
                 name
+                serializedName
                 status
                 index
             }

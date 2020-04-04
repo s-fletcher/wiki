@@ -24,7 +24,6 @@ function AddPage({ setLoading, setModal }) {
         if(data && !mutationError) {
             setModal(null);
         }
-        console.log("Loading: " + mutationLoading);
     });
 
     // TODO: 

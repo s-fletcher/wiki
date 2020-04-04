@@ -36,8 +36,8 @@ function Category(props) {
                     {Object.keys(props.pages).map(page => {
                         return (
                             <PageItem
-                                key={props.pages[page].id}
-                                id={props.pages[page].id}
+                                key={props.pages[page].serializedName}
+                                url={props.pages[page].serializedName}
                                 name={props.pages[page].name}
                                 status={props.pages[page].status}
                                 index={props.pages[page].index}
