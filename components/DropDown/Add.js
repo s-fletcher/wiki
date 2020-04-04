@@ -5,7 +5,9 @@ function Add({ setModal }) {
                 Add Page
             </p>
             <div className="divider cancelClose" />
-            <p className="dropItem">Add Category</p>
+            <p onClick={() => setModal("addCategory")} className="dropItem">
+                Add Category
+            </p>
         </div>
     );
 }

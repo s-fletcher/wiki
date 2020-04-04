@@ -1,7 +1,9 @@
-function Settings() {
+function Settings({ setModal }) {
     return (
         <div className="cancelClose">
-            <p className="dropItem">Export Data</p>
+            <p onClick={() => setModal("exportData")} className="dropItem">
+                Export Data
+            </p>
             <p className="dropItem cancelClose">Toggle Dark Mode</p>
             <div className="divider cancelClose" />
             <p className="dropItem">Sign Out</p>

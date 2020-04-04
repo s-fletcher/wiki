@@ -3,11 +3,12 @@ import Settings from "./Settings";
 import Add from "./Add";
 import Filter from "./Filter";
 import Modal from "../Modal";
+import { CSSTransition } from "react-transition-group";
 
 const StyledDropDown = styled.div`
     position: fixed;
     top: 70px;
-    right: ${props => props.right};
+    right: ${(props) => props.right};
     background: rgb(248, 248, 248);
     border: 1px solid rgb(213, 213, 213);
     border-radius: 5px;
@@ -32,31 +33,71 @@ const StyledDropDown = styled.div`
     }
 `;
 
+const Animations = styled.div`
+    .modal-enter {
+        opacity: 0;
+    }
+    .modal-enter-active {
+        opacity: 1;
+        transition: opacity ${(props) => props.timeout + "ms"};
+    }
+    .modal-exit {
+        opacity: 1;
+    }
+    .modal-exit-active {
+        opacity: 0;
+        transition: opacity ${(props) => props.timeout + "ms"};
+    }
+`;
+
 function DropDown(props) {
-    const [modal, setModal] = React.useState();
-    if (modal === "addPage") return <Modal setModal={setModal} />;
-    if (props.type === "settings") {
-        return (
-            <StyledDropDown right="15px" className="cancelClose">
-                <Settings />
-            </StyledDropDown>
-        );
-    }
-    if (props.type === "add") {
-        return (
-            <StyledDropDown right="65px" className="cancelClose">
-                <Add setModal={setModal} />
-            </StyledDropDown>
-        );
-    }
-    if (props.type === "filter") {
-        return (
-            <StyledDropDown right="115px" className="cancelClose">
-                <Filter />
-            </StyledDropDown>
-        );
-    }
-    return null;
+    const [modal, setModal] = React.useState(null);
+    const timeout = 250;
+
+    return (
+        <Animations timeout={timeout}>
+            {/* Settings drop down */}
+            <CSSTransition
+                in={props.type === "settings"}
+                timeout={0}
+                unmountOnExit
+                classNames="dropdown"
+            >
+                <StyledDropDown right="15px" className="cancelClose">
+                    <Settings setModal={setModal} />
+                </StyledDropDown>
+            </CSSTransition>
+
+            {/* Add drop down */}
+            <CSSTransition
+                in={props.type === "add"}
+                timeout={0}
+                unmountOnExit
+                classNames="dropdown"
+            >
+                <StyledDropDown right="65px" className="cancelClose">
+                    <Add setModal={setModal} />
+                </StyledDropDown>
+            </CSSTransition>
+
+            {/* Filter drop down */}
+            <CSSTransition
+                in={props.type === "filter"}
+                timeout={0}
+                unmountOnExit
+                classNames="dropdown"
+            >
+                <StyledDropDown right="115px" className="cancelClose">
+                    <Filter />
+                </StyledDropDown>
+            </CSSTransition>
+
+            {/* Modals */}
+            <CSSTransition in={modal !== null} timeout={timeout} unmountOnExit classNames="modal">
+                <Modal timeout={timeout} modal={modal} setModal={setModal} />
+            </CSSTransition>
+        </Animations>
+    );
 }
 
 export default DropDown;
