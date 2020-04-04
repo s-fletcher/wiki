@@ -40,7 +40,7 @@ function AddPage({ setLoading, setModal }) {
             setError(true);
             setLoading(false);
         } else {
-            addPage({ variables: { name: pageName, userId: "ck87wcrmi5y24093471g93wav" } });
+            addPage({ variables: { name: pageName, userId: "demo-user" } });
             setError(false);
         }
     }
