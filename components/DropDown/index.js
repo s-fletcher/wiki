@@ -39,7 +39,7 @@ const Animations = styled.div`
     }
     .modal-enter-active {
         opacity: 1;
-        transition: opacity ${(props) => props.timeout + "ms"};
+        transition: opacity ${(props) => props.timeout*2 + "ms"};
     }
     .modal-exit {
         opacity: 1;
@@ -52,7 +52,7 @@ const Animations = styled.div`
 
 function DropDown(props) {
     const [modal, setModal] = React.useState(null);
-    const timeout = 250;
+    const timeout = 125;
 
     return (
         <Animations timeout={timeout}>

@@ -1,10 +1,11 @@
 import TextField from "./Inputs/TextField";
 import { gql, useMutation } from "@apollo/client";
+import Router from 'next/router'
 
 const ADD_PAGE = gql`
     mutation AddPage($name: String!, $userId: ID!) {
         createPage(name: $name, userId: $userId) {
-            name
+            serializedName
         }
     }
 `;
@@ -21,8 +22,10 @@ function AddPage({ setLoading, setModal }) {
         if (!mutationLoading) {
             setLoading(false);
         }
+        // Successfully added page
         if(data && !mutationError) {
             setModal(null);
+            Router.push(`/${data.createPage.serializedName}`);
         }
     });
 
