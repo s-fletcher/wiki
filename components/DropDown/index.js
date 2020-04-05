@@ -8,7 +8,7 @@ import { CSSTransition } from "react-transition-group";
 const StyledDropDown = styled.div`
     position: fixed;
     top: 70px;
-    right: ${(props) => props.right};
+    margin-left: ${(props) => props.right};
     background: rgb(248, 248, 248);
     border: 1px solid rgb(213, 213, 213);
     border-radius: 5px;
@@ -39,7 +39,7 @@ const Animations = styled.div`
     }
     .modal-enter-active {
         opacity: 1;
-        transition: opacity ${(props) => props.timeout*2 + "ms"};
+        transition: opacity ${(props) => props.timeout * 2 + "ms"};
     }
     .modal-exit {
         opacity: 1;
@@ -63,7 +63,7 @@ function DropDown(props) {
                 unmountOnExit
                 classNames="dropdown"
             >
-                <StyledDropDown right="15px" className="cancelClose">
+                <StyledDropDown right="-32px" className="cancelClose">
                     <Settings setModal={setModal} />
                 </StyledDropDown>
             </CSSTransition>
@@ -75,7 +75,7 @@ function DropDown(props) {
                 unmountOnExit
                 classNames="dropdown"
             >
-                <StyledDropDown right="65px" className="cancelClose">
+                <StyledDropDown right="-82px" className="cancelClose">
                     <Add setModal={setModal} />
                 </StyledDropDown>
             </CSSTransition>
@@ -87,7 +87,7 @@ function DropDown(props) {
                 unmountOnExit
                 classNames="dropdown"
             >
-                <StyledDropDown right="115px" className="cancelClose">
+                <StyledDropDown right="-132px" className="cancelClose">
                     <Filter />
                 </StyledDropDown>
             </CSSTransition>
