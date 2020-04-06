@@ -7,6 +7,7 @@ import Category from "../components/Dashboard/Category";
 const CATEGORIES = gql`
     {
         categories(orderBy: index_ASC) {
+            id
             name
             index
             emoji
@@ -53,9 +54,9 @@ function Index(props) {
             <Head>
                 <title>Wiki</title>
             </Head>
-            <NavBar settings add filter search />
+            <NavBar data={data} refetch={refetch} settings add filter search />
             <StyledIndex>
-                {Object.keys(data.categories).map(i => {
+                {Object.keys(data.categories).map((i) => {
                     return (
                         <Category
                             key={data.categories[i].name}

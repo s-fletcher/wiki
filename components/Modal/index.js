@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { CSSTransition } from "react-transition-group";
 import AddPage from "./AddPage";
+import AddCategory from "./AddCategory";
 
 const Container = styled.div`
     cursor: pointer;
@@ -49,7 +50,7 @@ const Header = styled.div`
 
 const Content = styled.div`
     background: rgba(0, 0, 0, 0.01);
-    padding: 20px 20px 30px 20px;
+    padding: 20px;
 `;
 
 const Footer = styled.div`
@@ -80,7 +81,7 @@ const Footer = styled.div`
     }
 `;
 
-function Modal({ setModal, modal, timeout }) {
+function Modal({ setModal, modal, timeout, data, refetch}) {
     const [loading, setLoading] = React.useState(false);
 
     // Closes modal if clicking outside of container
@@ -112,11 +113,19 @@ function Modal({ setModal, modal, timeout }) {
                 <Content>
                     {/* Add Page Content */}
                     <CSSTransition in={modal === "addPage"} timeout={timeout} unmountOnExit>
-                        <AddPage setLoading={setLoading} setModal={setModal} />
+                        <AddPage
+                            categories={data.categories}
+                            setLoading={setLoading}
+                            setModal={setModal}
+                        />
                     </CSSTransition>
                     {/* Add Category Content */}
                     <CSSTransition in={modal === "addCategory"} timeout={timeout} unmountOnExit>
-                        <p>Add Category Content</p>
+                        <AddCategory
+                            refetch={refetch}
+                            setLoading={setLoading}
+                            setModal={setModal}
+                        />
                     </CSSTransition>
                     {/* Export Data Content */}
                     <CSSTransition in={modal === "exportData"} timeout={timeout} unmountOnExit>

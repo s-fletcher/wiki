@@ -35,7 +35,13 @@ function NavBar(props) {
             <div className="container">
                 <Logo />
                 {props.search ? <Search /> : null}
-                <Buttons filter={props.filter} add={props.add} settings={props.settings} />
+                <Buttons
+                    data={props.data}
+                    refetch={props.refetch}
+                    filter={props.filter}
+                    add={props.add}
+                    settings={props.settings}
+                />
             </div>
         </StyledNavBar>
     );

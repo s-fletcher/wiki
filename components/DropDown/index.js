@@ -94,7 +94,13 @@ function DropDown(props) {
 
             {/* Modals */}
             <CSSTransition in={modal !== null} timeout={timeout} unmountOnExit classNames="modal">
-                <Modal timeout={timeout} modal={modal} setModal={setModal} />
+                <Modal
+                    data={props.data}
+                    refetch={props.refetch}
+                    timeout={timeout}
+                    modal={modal}
+                    setModal={setModal}
+                />
             </CSSTransition>
         </Animations>
     );
