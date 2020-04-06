@@ -1,17 +1,19 @@
 import TextField from "./Inputs/TextField";
+import Select from "./Inputs/Select";
 import { gql, useMutation } from "@apollo/client";
 import Router from 'next/router'
 
 const ADD_PAGE = gql`
-    mutation AddPage($name: String!, $userId: ID!) {
-        createPage(name: $name, userId: $userId) {
+    mutation AddPage($name: String!, $userId: ID!, $categoryId: ID) {
+        createPage(name: $name, userId: $userId, categoryId: $categoryId) {
             serializedName
         }
     }
 `;
 
-function AddPage({ setLoading, setModal }) {
+function AddPage({ setLoading, setModal, categories}) {
     const [pageName, setPageName] = React.useState("");
+    const [category, setCategory] = React.useState("");
     const [error, setError] = React.useState(false);
     const [addPage, { data, loading: mutationLoading, error: mutationError }] = useMutation(ADD_PAGE);
 
@@ -32,21 +34,23 @@ function AddPage({ setLoading, setModal }) {
     // TODO: 
     //   - Display error messages
     //   - Dynamic UserID
-    //   - Refetch dashboard maybe with React Context?
     //   - Delete pages
-    //   - Select category
     function onSubmit(event) {
         event.preventDefault();
         setLoading(true);
         if (pageName === "") {
             setError(true);
             setLoading(false);
-        } else {
+        } else if(category === "") {
             addPage({ variables: { name: pageName, userId: "demo-user" } });
             setError(false);
         }
+        else {
+            addPage({ variables: { name: pageName, userId: "demo-user", categoryId: category } });
+            setError(false);
+        }
     }
-
+    
     return (
         <div>
             <form id="modalForm" onSubmit={onSubmit}>
@@ -56,6 +60,14 @@ function AddPage({ setLoading, setModal }) {
                     setValue={setPageName}
                     value={pageName}
                     id="pageName"
+                />
+                <Select
+                    options={categories}
+                    label="Category"
+                    optional
+                    setValue={setCategory}
+                    value={category}
+                    id="category"
                 />
             </form>
         </div>
