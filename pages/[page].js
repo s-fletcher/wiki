@@ -1,3 +1,14 @@
+/**
+ * A page view where a user can view and edit pages. The file name is [page].js 
+ * so that a user can navigate to wiki.hacklahoma.org/demo-page and view the 
+ * demo-page. It's basically a parent for all the pages.
+ * 
+ * TODO:
+ *  - Implementing category tree
+ *  - Implement viewing the page's content
+ *  - Implement editing the page's content
+ */
+
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -13,6 +24,7 @@ const GET_PAGE = gql`
         }
     }
 `;
+
 function Page() {
     const router = useRouter();
     const { page } = router.query;
@@ -35,10 +47,12 @@ function Page() {
 
     return (
         <div>
+            {/* Sets the title of the page as 'Page Name • Wiki'  */}
             <Head>
                 <title>{data.page.name} • Wiki</title>
             </Head>
             <NavBar settings add search />
+            {/* Page content below */}
             <Link href="/">
                 <a>Home</a>
             </Link>

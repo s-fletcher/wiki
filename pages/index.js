@@ -1,3 +1,15 @@
+/**
+ * The Dashboard that loads at the root url. This displays all of the categories
+ * and their associated pages. From here you can edit the category attributes and page
+ * attributes. The navbar component is also called to allow the user to filter, add
+ * pages & categories, and view the settings.
+ * 
+ * TODO:
+ *  - Edit page attributes
+ *  - Edit category attributes
+ *  - Display emoji of category
+ */
+
 import { useQuery, gql } from "@apollo/client";
 import Head from "next/head";
 import styled from "styled-components";
@@ -55,6 +67,7 @@ function Index(props) {
                 <title>Wiki</title>
             </Head>
             <NavBar data={data} refetch={refetch} settings add filter search />
+            {/* Iterates through categories and displays them */}
             <StyledIndex>
                 {Object.keys(data.categories).map((i) => {
                     return (
