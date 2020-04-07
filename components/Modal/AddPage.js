@@ -35,6 +35,7 @@ function AddPage({ setLoading, setModal, categories}) {
     //   - Display error messages
     //   - Dynamic UserID
     //   - Delete pages
+    //   - Add character limits
     function onSubmit(event) {
         event.preventDefault();
         setLoading(true);

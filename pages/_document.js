@@ -1,3 +1,8 @@
+/**
+ * This overwrites Next.js's default document to allow styled-components to be inline
+ * with Next's server side rendering and also set default meta tags. 
+ */
+
 import { ServerStyleSheet as StyledComponentSheets } from "styled-components";
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from "@material-ui/styles";
 import Document, { Html, Head, Main, NextScript } from "next/document";

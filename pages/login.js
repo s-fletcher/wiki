@@ -1,3 +1,14 @@
+/** 
+ * This is where a user can log into the wiki. They can do so by slack authentication.
+ * 
+ * Currently only styling is implemented and it's linked to the slack api. This doesn't yet communicate 
+ * with our backend and anyone can view the wiki without logging in.
+ * 
+ * TODO: 
+ *  - Communicate with backend
+ *  - Route everything to this page when a valid cookie is not found
+ */
+
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import Head from "next/head";
