@@ -5,7 +5,7 @@
  * with our backend and anyone can view the wiki without logging in.
  * 
  * TODO: 
- *  - Communicate with backend
+ *  - Communicate with backend and create a user on new login
  *  - Route everything to this page when a valid cookie is not found
  */
 

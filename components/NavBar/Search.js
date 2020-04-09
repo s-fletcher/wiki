@@ -1,3 +1,10 @@
+/**
+ * Helper function for NavBar which controls search functionality
+ * 
+ * TODO:
+ *  - Implement search functionality
+ */
+
 import styled from "styled-components";
 import { IoMdSearch } from "react-icons/io";
 

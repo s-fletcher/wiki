@@ -1,3 +1,13 @@
+/**
+ * Child component for DropDown to display options to filter categories.
+ * 
+ * TODO:
+ *  - Map through categories and display their name for each option instead of
+ *    having the placeholder of filter1, filter2, etc.
+ *  - Add functionality to filter categories
+ *  - Add functionality to clear filters
+ */
+
 function Filter() {
     return (
         <div className="cancelClose">

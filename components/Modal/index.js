@@ -1,3 +1,14 @@
+/**
+ * Main Modal component that controls the routing of which type of modal to
+ * show. It also styles the container.
+ * 
+ * TODO:
+ *  - Allow customization of "Save" button to say other things based on props
+ *  - Add Edit Page modal
+ *  - Add Edit Category modal
+ *  - Add Error Modal
+ */
+
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import Button from "@material-ui/core/Button";
