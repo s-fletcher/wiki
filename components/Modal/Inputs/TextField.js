@@ -1,3 +1,7 @@
+/**
+ * A type of input that displays a text field
+ */
+
 import styled from "styled-components";
 
 const StyledTextField = styled.div`

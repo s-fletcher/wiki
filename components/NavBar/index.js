@@ -1,3 +1,7 @@
+/**
+ * NavBar container that displays it's child components
+ */
+
 import styled from "styled-components";
 import Logo from "./Logo";
 import Buttons from "./Buttons";

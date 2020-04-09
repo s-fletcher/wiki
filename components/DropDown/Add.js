@@ -1,3 +1,9 @@
+/**
+ * Child component for DropDown to display options to add a page or category.
+ * 
+ * @param setModal Set's the modal to render in viewport
+ */
+
 function Add({ setModal }) {
     return (
         <div className="cancelClose">

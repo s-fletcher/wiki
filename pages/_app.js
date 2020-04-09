@@ -2,7 +2,7 @@
  * This overwrites Next.js's default app to include providers and whatnot.
  * 
  * TODO: 
- *    - A way to change themes has not yet been implemented. 
+ *  - A way to change themes has not yet been implemented. 
  */
 
 import { ApolloProvider } from "@apollo/client";

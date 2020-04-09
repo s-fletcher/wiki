@@ -1,3 +1,8 @@
+/**
+ * Helper function for NavBar which renders all the individual buttons to
+ * choose from.
+ */
+
 import styled from "styled-components";
 import { IoMdSettings } from "react-icons/io";
 import { FaFilter, FaPlus } from "react-icons/fa";
