@@ -9,70 +9,37 @@
  *  - Implement editing the page's content
  */
 
-import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
-import Error from "next/error";
-import Head from "next/head";
 import NavBar from "../components/NavBar";
 import styled from "styled-components";
 import Tree from "../components/Page/Tree";
 import Content from "../components/Page/Content";
-
-const GET_PAGE = gql`
-    query Page($serializedName: String!) {
-        page(where: { serializedName: $serializedName }) {
-            name
-            serializedName
-        }
-    }
-`;
 
 const StyledPage = styled.div`
     background: ${(props) => (props.edit ? "red" : "unset")};
     transition: background 0.5s;
     min-height: calc(100vh - 60px);
     text-align: left;
-    /* background: red; */
     .container {
         padding: 25px;
         display: flex;
-        max-width: 1350px;
+        max-width: 1200px;
         margin: auto;
     }
 `;
 
 function Page() {
     const router = useRouter();
-    const { page } = router.query;
+    var { page } = router.query;
     const [edit, setEdit] = React.useState(false);
-    const { loading, error, data } = useQuery(GET_PAGE, {
-        variables: { serializedName: page ? page : "" },
-    });
-    /** RETURN loading */
-    if (loading)
-        return (
-            <div>
-                <NavBar settings add search />
-                <p>Loading...</p>
-            </div>
-        );
-    /** RETURN Error */
-    if (error) return <p>{error.message}</p>;
-    /** RETURN 404 when page does not exist */
-    if (!data.page) return <Error statusCode={"404"} />;
 
     return (
         <div>
-            {/* Sets the title of the page as 'Page Name • Wiki'  */}
-            <Head>
-                <title>{data.page.name} • Wiki</title>
-            </Head>
             <NavBar settings add search />
-
             <StyledPage edit={edit}>
                 <div className="container">
-                    <Tree />
-                    <Content data={data} />
+                    <Tree currentPage={page} />
+                    <Content page={page} />
                 </div>
             </StyledPage>
         </div>

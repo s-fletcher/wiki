@@ -18,15 +18,12 @@ import Category from "../components/Dashboard/Category";
 const CATEGORIES = gql`
     {
         categories(orderBy: index_ASC) {
-            id
             name
-            index
             emoji
             pages(orderBy: index_ASC) {
                 name
                 serializedName
                 status
-                index
             }
         }
     }
@@ -46,7 +43,7 @@ const StyledIndex = styled.div`
     }
 `;
 
-function Index(props) {
+function Index() {
     const { loading, error, data, refetch } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
@@ -73,7 +70,6 @@ function Index(props) {
                         <Category
                             key={data.categories[i].name}
                             name={data.categories[i].name}
-                            index={data.categories[i].index}
                             emoji={data.categories[i].emoji}
                             pages={data.categories[i].pages}
                         />
