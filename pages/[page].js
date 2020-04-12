@@ -1,8 +1,8 @@
 /**
- * A page view where a user can view and edit pages. The file name is [page].js 
- * so that a user can navigate to wiki.hacklahoma.org/demo-page and view the 
+ * A page view where a user can view and edit pages. The file name is [page].js
+ * so that a user can navigate to wiki.hacklahoma.org/demo-page and view the
  * demo-page. It's basically a parent for all the pages.
- * 
+ *
  * TODO:
  *  - Implementing category tree
  *  - Implement viewing the page's content
@@ -11,10 +11,12 @@
 
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Error from "next/error";
 import Head from "next/head";
 import NavBar from "../components/NavBar";
+import styled from "styled-components";
+import Tree from "../components/Page/Tree";
+import Content from "../components/Page/Content";
 
 const GET_PAGE = gql`
     query Page($serializedName: String!) {
@@ -25,18 +27,32 @@ const GET_PAGE = gql`
     }
 `;
 
+const StyledPage = styled.div`
+    background: ${(props) => (props.edit ? "red" : "unset")};
+    transition: background 0.5s;
+    min-height: calc(100vh - 60px);
+    text-align: left;
+    /* background: red; */
+    .container {
+        padding: 25px;
+        display: flex;
+        max-width: 1350px;
+        margin: auto;
+    }
+`;
+
 function Page() {
     const router = useRouter();
     const { page } = router.query;
+    const [edit, setEdit] = React.useState(false);
     const { loading, error, data } = useQuery(GET_PAGE, {
-        variables: { serializedName: page },
+        variables: { serializedName: page ? page : "" },
     });
-
     /** RETURN loading */
     if (loading)
         return (
             <div>
-                <NavBar settings add filter search />
+                <NavBar settings add search />
                 <p>Loading...</p>
             </div>
         );
@@ -52,12 +68,13 @@ function Page() {
                 <title>{data.page.name} • Wiki</title>
             </Head>
             <NavBar settings add search />
-            {/* Page content below */}
-            <Link href="/">
-                <a>Home</a>
-            </Link>
-            <p>/{data.page.serializedName}</p>
-            <h1>{data.page.name}</h1>
+
+            <StyledPage edit={edit}>
+                <div className="container">
+                    <Tree />
+                    <Content data={data} />
+                </div>
+            </StyledPage>
         </div>
     );
 }
