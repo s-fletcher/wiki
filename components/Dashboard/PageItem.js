@@ -1,3 +1,12 @@
+/**
+ * Single page name to display to user. Allows user to edit it's attributes on
+ * hover.
+ *
+ * TODO:
+ *  - Edit page attributes feature
+ *  - Find better icon to show for status
+ */
+
 import styled from "styled-components";
 import Link from "next/link";
 import { GoPrimitiveDot } from "react-icons/go";

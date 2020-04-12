@@ -1,3 +1,7 @@
+/**
+ * Helper function for NavBar which renders the logo
+ */
+
 import styled from "styled-components";
 import Link from "next/link";
 

@@ -1,3 +1,13 @@
+/**
+ * Generates the categories name as a header and then maps through it's pages
+ * to display those as PageItems. Also allows user to edit attributes on hover.
+ * 
+ * TODO:
+ *  - Edit category attributes feature
+ *  - Display emoji of category
+ *  - See PageItem.js component
+ */
+
 import styled from "styled-components";
 import PageItem from "./PageItem";
 

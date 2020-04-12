@@ -1,3 +1,13 @@
+/**
+ * Child component for DropDown to display options of settings.
+ * 
+ * TODO:
+ *  - Add functionality to toggle dark mode
+ *  - Add functionality to sign the user out
+ * 
+ * @param setModal Set's the modal to render in viewport
+ */
+
 function Settings({ setModal }) {
     return (
         <div className="cancelClose">

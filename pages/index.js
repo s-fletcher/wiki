@@ -5,9 +5,8 @@
  * pages & categories, and view the settings.
  * 
  * TODO:
- *  - Edit page attributes
- *  - Edit category attributes
- *  - Display emoji of category
+ *  - See Category.js component
+ *  - See PageItem.js component
  */
 
 import { useQuery, gql } from "@apollo/client";

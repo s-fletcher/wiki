@@ -1,3 +1,8 @@
+/**
+ * Main DropDown component that controls the routing of which type of dropdown
+ * to show. It also styles the container.
+ */
+
 import styled from "styled-components";
 import Settings from "./Settings";
 import Add from "./Add";

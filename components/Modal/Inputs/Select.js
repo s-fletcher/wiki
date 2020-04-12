@@ -1,3 +1,7 @@
+/**
+ * A type of input to select from different options.
+ */
+
 import styled from "styled-components";
 
 const StyledTextField = styled.div`
@@ -28,7 +32,7 @@ const StyledTextField = styled.div`
     }
 `;
 
-function TextField({ error, required, value, setValue, label, optional, options, id }) {
+function TextField({ error, required, setValue, label, optional, options }) {
     return (
         <StyledTextField className="textField">
             <p>

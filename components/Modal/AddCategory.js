@@ -1,3 +1,11 @@
+/**
+ * Child component for Modal to add a category.
+ * 
+ * @param setModal Set's the modal to render in viewport
+ * @param refetch Refetch the data to update dashboard
+ * @param setLoading Displays the loading icon in button
+ */
+
 import TextField from "./Inputs/TextField";
 import { gql, useMutation } from "@apollo/client";
 
