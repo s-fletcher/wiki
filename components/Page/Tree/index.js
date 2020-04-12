@@ -1,6 +1,9 @@
+/**
+ * Holds the tree to the left of each page.
+ */
+
 import styled from "styled-components";
 import TreeItem from "./TreeItem";
-import { gql, useQuery } from "@apollo/client";
 
 const StyledTree = styled.div`
     min-width: 230px;
@@ -9,22 +12,7 @@ const StyledTree = styled.div`
     max-width: max-content;
 `;
 
-const CATEGORIES = gql`
-    {
-        categories(orderBy: index_ASC) {
-            name
-            emoji
-            pages(orderBy: index_ASC) {
-                name
-                serializedName
-            }
-        }
-    }
-`;
-
-function Tree({currentPage}) {
-    const { loading, error, data } = useQuery(CATEGORIES);
-
+function Tree({ currentPage, loading, error, data }) {
     /** RETURN Loading */
     if (loading) return <p>Loading...</p>;
     /** RETURN Error */

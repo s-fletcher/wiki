@@ -18,6 +18,7 @@ import Category from "../components/Dashboard/Category";
 const CATEGORIES = gql`
     {
         categories(orderBy: index_ASC) {
+            id
             name
             emoji
             pages(orderBy: index_ASC) {

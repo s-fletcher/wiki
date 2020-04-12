@@ -1,3 +1,7 @@
+/**
+ * Holds the content of the page excluding the tree.
+ */
+
 import styled from "styled-components";
 import Link from "next/link";
 import { gql, useQuery } from "@apollo/client";
