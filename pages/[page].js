@@ -14,6 +14,21 @@ import NavBar from "../components/NavBar";
 import styled from "styled-components";
 import Tree from "../components/Page/Tree";
 import Content from "../components/Page/Content";
+import { gql, useQuery } from "@apollo/client";
+
+const CATEGORIES = gql`
+    {
+        categories(orderBy: index_ASC) {
+            id
+            name
+            emoji
+            pages(orderBy: index_ASC) {
+                name
+                serializedName
+            }
+        }
+    }
+`;
 
 const StyledPage = styled.div`
     background: ${(props) => (props.edit ? "red" : "unset")};
@@ -29,16 +44,17 @@ const StyledPage = styled.div`
 `;
 
 function Page() {
+    const { loading, error, data, refetch } = useQuery(CATEGORIES);
     const router = useRouter();
     var { page } = router.query;
     const [edit, setEdit] = React.useState(false);
 
     return (
         <div>
-            <NavBar settings add search />
+            <NavBar data={data} refetch={refetch} settings add search />
             <StyledPage edit={edit}>
                 <div className="container">
-                    <Tree currentPage={page} />
+                    <Tree data={data} loading={loading} error={error} currentPage={page} />
                     <Content page={page} />
                 </div>
             </StyledPage>
