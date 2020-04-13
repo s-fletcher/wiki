@@ -3,7 +3,6 @@
  */
 
 import styled from "styled-components";
-import Link from "next/link";
 import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
 
@@ -16,6 +15,13 @@ const GET_PAGE = gql`
 `;
 
 const StyledContent = styled.div`
+    h1 {
+        font-weight: 900;
+        padding-bottom: 3px;
+        display: inline-block;
+        margin-bottom: 20px;
+        border-bottom: 2px solid ${(props) => props.theme.lightGray};
+    }
 `;
 
 function Content({ page, collapseWidth }) {
