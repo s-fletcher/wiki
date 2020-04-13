@@ -24,7 +24,7 @@ const StyledNavBar = styled.div`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     background: white;
     .container {
-        max-width: 1000px;
+        max-width: ${props => props.maxWidth + "px"};
         margin: auto;
         height: 60px;
         justify-content: space-between;
@@ -35,9 +35,9 @@ const StyledNavBar = styled.div`
 
 function NavBar(props) {
     return (
-        <StyledNavBar>
+        <StyledNavBar maxWidth={props.maxWidth === undefined ? 1000 : props.maxWidth + 50}>
             <div className="container">
-                <Logo />
+                <Logo collapseWidth={props.collapseWidth} tree={props.tree} setTree={props.setTree} />
                 {props.search ? <Search /> : null}
                 <Buttons
                     data={props.data}

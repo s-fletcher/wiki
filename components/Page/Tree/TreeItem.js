@@ -9,6 +9,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 const StyledTreeItem = styled.div`
     /* background: gray; */
+    margin: 10px 0;
     .header {
         display: flex;
         align-items: center;
@@ -18,10 +19,13 @@ const StyledTreeItem = styled.div`
             transition: transform .1s;
             transform: ${props => props.expanded ? 'rotate(90deg)' : 'rotate(0deg)'};
         }
+        h3 {
+            font-weight: 900;
+        }
     }
     .pages {
         .active {
-            color: blue;
+            color: ${props => props.theme.blue};
         }
         .item {
             cursor: pointer;
