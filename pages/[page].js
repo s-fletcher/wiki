@@ -4,7 +4,6 @@
  * demo-page. It's basically a parent for all the pages.
  *
  * TODO:
- *  - Implementing category tree
  *  - Implement viewing the page's content
  *  - Implement editing the page's content
  */
@@ -82,16 +81,25 @@ function Page() {
 
     React.useEffect(() => {
         setMenuOpen(window.innerWidth > collapseWidth);
-        window.onresize = function () {
-            setMenuOpen(window.innerWidth > collapseWidth);
-            if (window.innerWidth > collapseWidth) {
-                onMenuClose();
-            }
-        };
+        window.addEventListener("resize", handleResize);
 
         document.addEventListener("menuOpen", onMenuOpen);
         document.addEventListener("menuClose", onMenuClose);
     }, []);
+    React.useEffect(() => {
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            document.removeEventListener("menuOpen", onMenuOpen);
+            document.removeEventListener("menuClose", onMenuClose);
+        };
+    }, []);
+
+    function handleResize() {
+        setMenuOpen(window.innerWidth > collapseWidth);
+        if (window.innerWidth > collapseWidth) {
+            onMenuClose();
+        }
+    }
 
     function onMenuOpen() {
         document.getElementById("page").style.transform = "translateX(270px)";
