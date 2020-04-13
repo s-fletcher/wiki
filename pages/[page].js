@@ -120,6 +120,7 @@ function Page() {
                 maxWidth={maxWidth}
                 data={data}
                 refetch={refetch}
+                page
                 settings
                 add
                 search
