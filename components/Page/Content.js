@@ -18,7 +18,7 @@ const GET_PAGE = gql`
 const StyledContent = styled.div`
 `;
 
-function Content({ page, collapseWidth, tree }) {
+function Content({ page, collapseWidth }) {
     const { loading, error, data } = useQuery(GET_PAGE, {
         variables: { serializedName: page ? page : "" },
     });
@@ -35,7 +35,7 @@ function Content({ page, collapseWidth, tree }) {
             <Head>
                 <title>{data.page.name} • Wiki</title>
             </Head>
-            <StyledContent collapseWidth={collapseWidth} tree={tree} id="pageContent">
+            <StyledContent collapseWidth={collapseWidth} id="pageContent">
                 <h1>{data.page.name}</h1>
                 <p>
                     Setting up the room Two laptops are needed in the room to attest for manual

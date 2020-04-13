@@ -14,6 +14,7 @@ const StyledSearch = styled.div`
     flex-grow: 1;
     max-width: 600px;
     margin: 0 10px 0 30px;
+    transition: transform .2s;
     .icon {
         color: ${props => props.theme.gray};
         width: 26px;
@@ -39,7 +40,7 @@ const StyledSearch = styled.div`
 
 function Search() {
     return (
-        <StyledSearch>
+        <StyledSearch id="searchBar">
             <IoMdSearch className="icon" />
             <input id="search" placeholder="Search for..." />
         </StyledSearch>

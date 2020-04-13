@@ -9,15 +9,16 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 const StyledTreeItem = styled.div`
     /* background: gray; */
-    margin: 10px 0;
+    margin: 5px 0;
     .header {
+        padding: 5px 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
         .icon {
-            transition: transform .1s;
-            transform: ${props => props.expanded ? 'rotate(90deg)' : 'rotate(0deg)'};
+            transition: transform 0.1s;
+            transform: ${(props) => (props.expanded ? "rotate(90deg)" : "rotate(0deg)")};
         }
         h3 {
             font-weight: 900;
@@ -25,7 +26,7 @@ const StyledTreeItem = styled.div`
     }
     .pages {
         .active {
-            color: ${props => props.theme.blue};
+            color: ${(props) => props.theme.blue};
         }
         .item {
             cursor: pointer;
@@ -54,7 +55,7 @@ const StyledTreeItem = styled.div`
     }
 `;
 
-function TreeItem({ name, emoji, pages, currentPage }) {
+function TreeItem({ setMenu, name, emoji, pages, currentPage }) {
     const [expanded, setExpanded] = React.useState(
         pages.some((e) => e.serializedName === currentPage)
     );
@@ -73,7 +74,7 @@ function TreeItem({ name, emoji, pages, currentPage }) {
                 );
             else
                 result.push(
-                    <div key={pages[i].serializedName}>
+                    <div key={pages[i].serializedName} onClick={() => setMenu && setMenu(false)}>
                         <Link href="/[page]" as={`/${pages[i].serializedName}`}>
                             <p className="item">{pages[i].name}</p>
                         </Link>
