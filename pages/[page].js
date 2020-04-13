@@ -76,7 +76,9 @@ function Page() {
     const { loading, error, data, refetch } = useQuery(CATEGORIES);
     const [menuOpen, setMenuOpen] = React.useState(true);
     const router = useRouter();
-    var { page } = router.query;
+    
+    var page = router.asPath.substring(1);
+    
     const [edit, setEdit] = React.useState(false);
 
     React.useEffect(() => {

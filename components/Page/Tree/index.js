@@ -11,7 +11,7 @@ const StyledTree = styled.div`
     min-width: 230px;
     max-width: max-content;
     position: relative;
-    margin: 0 40px 0 0;
+    margin: 0 30px 0 0;
     .items {
         position: absolute;
         width: 100%;
