@@ -40,6 +40,7 @@ function NavBar(props) {
                 <LeftParent data={props.data} menuOpen={props.menuOpen} />
                 {props.search ? <Search /> : null}
                 <Buttons
+                    page={props.page}
                     data={props.data}
                     refetch={props.refetch}
                     filter={props.filter}

@@ -109,7 +109,7 @@ function Buttons(props) {
                     </IconButton>
                 </Tooltip>
             ) : null}
-            <DropDown data={props.data} refetch={props.refetch} type={type} />
+            <DropDown page={props.page} data={props.data} refetch={props.refetch} type={type} />
         </StyledButtons>
     );
 }
