@@ -1,5 +1,5 @@
 /**
- * Renders menu for page view when in mobile mode. An abstraction from 
+ * Renders menu for page view when in mobile mode. An abstraction from
  * LeftParent.
  */
 import styled from "styled-components";
@@ -7,39 +7,35 @@ import { CSSTransition } from "react-transition-group";
 import Tree from "../Page/Tree";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
+import IconButton from "@material-ui/core/IconButton";
+import { MdClose } from "react-icons/md";
 
 const width = 270;
 
 const StyledHamburger = styled.div`
     margin: -2px -20px 0 5px;
-    .hamburger {
-        padding: 12px 15px;
-        margin: 0 5px;
-        border-radius: 30px;
-        border: none;
-        background: none;
-        outline: none;
-        transition: background .5s;
-        cursor: pointer;
-        div {
-            margin: 5px 0;
-            height: 3px;
-            width: 25px;
-            border-radius: 5px;
-            transition: background .5s;
-            background: ${(props) => props.theme.gray};
-        }
-        .middle {
-            width: 20px;
+    .hamburgerWrapper {
+        margin: 0 7px;
+        .hamburger {
+            margin: -1.5px 0.5px;
+            div {
+                margin: 5px 0;
+                height: 3px;
+                width: 25px;
+                border-radius: 5px;
+                transition: background 0.5s;
+                background: ${(props) => props.theme.gray};
+            }
+            .middle {
+                width: 20px;
+            }
         }
     }
-    .hamburger:focus {
-        background: rgba(0, 0, 0, 0.1);
-    }
-    .hamburger:hover {
-        background: rgba(0, 0, 0, 0.05);
-        div {
-            background: ${props => props.theme.blue};
+    .hamburgerWrapper:hover {
+        .hamburger {
+            div {
+                background: ${(props) => props.theme.blue};
+            }
         }
     }
     .menu {
@@ -54,8 +50,20 @@ const StyledHamburger = styled.div`
         text-align: left;
         .menuContent {
             margin: 25px 20px 0 20px;
-            #logo {
-                margin: 0 0 25px 0;
+            .top {
+                display: flex;
+                margin-bottom: 20px;
+                align-items: center;
+                justify-content: space-between;
+                #logo {
+                    margin: 0;
+                }
+                .close {
+                    transition: color 0.5s;
+                }
+                .close:hover {
+                    color: ${(props) => props.theme.red};
+                }
             }
         }
     }
@@ -109,7 +117,7 @@ const StyledHamburger = styled.div`
     }
 `;
 
-function Menu({data}) {
+function Menu({ data }) {
     const [menu, setMenu] = React.useState(false);
     const router = useRouter();
     var { page } = router.query;
@@ -121,15 +129,22 @@ function Menu({data}) {
 
     return (
         <StyledHamburger>
-            <button className="hamburger" onClick={() => setMenu(true)}>
-                <div className="top" />
-                <div className="middle" />
-                <div className="bottom" />
-            </button>
+            <IconButton className="hamburgerWrapper" onClick={() => setMenu(true)}>
+                <div className="hamburger">
+                    <div className="top" />
+                    <div className="middle" />
+                    <div className="bottom" />
+                </div>
+            </IconButton>
             <CSSTransition in={menu} timeout={200} classNames="menuWrapper" unmountOnExit>
                 <div className="menu">
                     <div className="menuContent">
-                        <Logo override={true} />
+                        <div className="top">
+                            <Logo override={true} />
+                            <IconButton className="close" onClick={() => setMenu(false)}>
+                                <MdClose />
+                            </IconButton>
+                        </div>
                         <Tree currentPage={page} fromMenu={true} setMenu={setMenu} data={data} />
                     </div>
                 </div>
