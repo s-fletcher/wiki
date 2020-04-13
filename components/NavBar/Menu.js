@@ -13,17 +13,33 @@ const width = 270;
 const StyledHamburger = styled.div`
     margin: -2px -20px 0 5px;
     .hamburger {
-        padding: 12px 20px;
+        padding: 12px 15px;
+        margin: 0 5px;
+        border-radius: 30px;
+        border: none;
+        background: none;
+        outline: none;
+        transition: background .5s;
         cursor: pointer;
         div {
             margin: 5px 0;
             height: 3px;
             width: 25px;
             border-radius: 5px;
+            transition: background .5s;
             background: ${(props) => props.theme.gray};
         }
         .middle {
             width: 20px;
+        }
+    }
+    .hamburger:focus {
+        background: rgba(0, 0, 0, 0.1);
+    }
+    .hamburger:hover {
+        background: rgba(0, 0, 0, 0.05);
+        div {
+            background: ${props => props.theme.blue};
         }
     }
     .menu {
@@ -105,11 +121,11 @@ function Menu({data}) {
 
     return (
         <StyledHamburger>
-            <div className="hamburger" onClick={() => setMenu(true)}>
+            <button className="hamburger" onClick={() => setMenu(true)}>
                 <div className="top" />
                 <div className="middle" />
                 <div className="bottom" />
-            </div>
+            </button>
             <CSSTransition in={menu} timeout={200} classNames="menuWrapper" unmountOnExit>
                 <div className="menu">
                     <div className="menuContent">
