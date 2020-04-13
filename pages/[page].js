@@ -35,7 +35,7 @@ var maxWidth = 1200;
 
 const StyledPage = styled.div`
     background: ${(props) => (props.edit ? "red" : "unset")};
-    transition: background 0.5s;
+    transition: background 0.5s, transform 0.2s;
     min-height: calc(100vh - 60px);
     text-align: left;
     .container {
@@ -73,27 +73,42 @@ const StyledPage = styled.div`
  */
 const collapseWidth = 800;
 
-function Page({ theme }) {
+function Page() {
     const { loading, error, data, refetch } = useQuery(CATEGORIES);
-    const [tree, setTree] = React.useState(false);
-    const [windowWidth, setWindowWidth] = React.useState();
+    const [menuOpen, setMenuOpen] = React.useState(true);
     const router = useRouter();
     var { page } = router.query;
     const [edit, setEdit] = React.useState(false);
 
     React.useEffect(() => {
-        setWindowWidth(window.innerWidth);
+        setMenuOpen(window.innerWidth > collapseWidth);
         window.onresize = function () {
-            setWindowWidth(window.innerWidth);
+            setMenuOpen(window.innerWidth > collapseWidth);
+            if (window.innerWidth > collapseWidth) {
+                onMenuClose();
+            }
         };
+
+        document.addEventListener("menuOpen", onMenuOpen);
+        document.addEventListener("menuClose", onMenuClose);
     }, []);
+
+    function onMenuOpen() {
+        document.getElementById("page").style.transform = "translateX(270px)";
+        document.getElementById("searchBar").style.transform = "translateX(220px)";
+        document.getElementById("buttons").style.transform = "translateX(220px)";
+    }
+
+    function onMenuClose() {
+        document.getElementById("page").style.transform = "translateX(0px)";
+        document.getElementById("searchBar").style.transform = "translateX(0px)";
+        document.getElementById("buttons").style.transform = "translateX(0px)";
+    }
 
     return (
         <div>
             <NavBar
-                tree={tree}
-                setTree={setTree}
-                collapseWidth={collapseWidth}
+                menuOpen={menuOpen}
                 maxWidth={maxWidth}
                 data={data}
                 refetch={refetch}
@@ -101,14 +116,9 @@ function Page({ theme }) {
                 add
                 search
             />
-            <StyledPage edit={edit}>
+            <StyledPage id="page" edit={edit}>
                 <div className="container">
-                    <CSSTransition
-                        in={tree || windowWidth > collapseWidth}
-                        timeout={200}
-                        classNames="tree"
-                        unmountOnExit
-                    >
+                    <CSSTransition in={menuOpen} timeout={200} classNames="tree" unmountOnExit>
                         <div className="treeContainer">
                             <Tree
                                 className="test"
@@ -119,7 +129,7 @@ function Page({ theme }) {
                             />
                         </div>
                     </CSSTransition>
-                    <Content tree={tree} collapseWidth={collapseWidth} page={page} />
+                    <Content collapseWidth={collapseWidth} page={page} />
                 </div>
             </StyledPage>
         </div>

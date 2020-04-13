@@ -25,7 +25,7 @@ const StyledTree = styled.div`
     }
 `;
 
-function Tree({ currentPage, loading, error, data }) {
+function Tree({ setMenu, currentPage, loading, error, data }) {
     /** RETURN Loading */
     if (loading) return <p>Loading...</p>;
     /** RETURN Error */
@@ -55,6 +55,7 @@ function Tree({ currentPage, loading, error, data }) {
                 {Object.keys(data.categories).map((i) => {
                     return (
                         <TreeItem
+                            setMenu={setMenu}
                             key={data.categories[i].name}
                             name={data.categories[i].name}
                             emoji={data.categories[i].emoji}
