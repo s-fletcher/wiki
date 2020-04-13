@@ -12,6 +12,7 @@ import "../public/nprogress.css";
 import client from "../lib/client";
 import Head from "next/head";
 import { themes } from "../lib/themes.js";
+import "react-quill/dist/quill.snow.css";
 
 function MyApp({ Component, pageProps }) {
     return (

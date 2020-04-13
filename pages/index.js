@@ -63,6 +63,9 @@ function Index() {
                 <p>{error.message}</p>
             </div>
         );
+
+        console.log(data.categories.length === 0);
+        
     /** RETURN Dashboard */
     return (
         <div>
@@ -72,7 +75,8 @@ function Index() {
             <NavBar data={data} refetch={refetch} settings add filter search />
             {/* Iterates through categories and displays them */}
             <StyledIndex>
-                {Object.keys(data.categories).map((i) => {
+                {data.categories.length === 0 ? <p>There is nothing here...</p> :
+                Object.keys(data.categories).map((i) => {
                     return (
                         <Category
                             key={data.categories[i].name}
