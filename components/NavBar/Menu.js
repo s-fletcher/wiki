@@ -1,3 +1,7 @@
+/**
+ * Renders menu for page view when in mobile mode. An abstraction from 
+ * LeftParent.
+ */
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 import Tree from "../Page/Tree";

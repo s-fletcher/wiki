@@ -1,5 +1,6 @@
 /**
- * Helper function for NavBar which renders the logo
+ * Helper function for NavBar which renders the logo. An abstraction from 
+ * LeftParent.
  */
 
 import styled from "styled-components";

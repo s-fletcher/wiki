@@ -3,7 +3,7 @@
  * and their associated pages. From here you can edit the category attributes and page
  * attributes. The navbar component is also called to allow the user to filter, add
  * pages & categories, and view the settings.
- * 
+ *
  * TODO:
  *  - See Category.js component
  *  - See PageItem.js component
@@ -39,7 +39,7 @@ const StyledIndex = styled.div`
     padding: 0 50px;
     text-align: left;
     position: relative;
-    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+    @media screen and (max-width: ${(props) => props.theme.mobileWidth}) {
         padding: 0 20px;
     }
 `;
@@ -56,7 +56,13 @@ function Index() {
             </div>
         );
     /** RETURN Error */
-    if (error) return <p>{error.message}</p>;
+    if (error)
+        return (
+            <div>
+                <NavBar />
+                <p>{error.message}</p>
+            </div>
+        );
     /** RETURN Dashboard */
     return (
         <div>
