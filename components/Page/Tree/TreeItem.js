@@ -32,6 +32,7 @@ const StyledTreeItem = styled.div`
             cursor: pointer;
             display: inline-block;
             margin-left: 30px;
+            padding-bottom: 3px;
         }
         .item:hover {
             text-decoration: underline;
@@ -41,11 +42,11 @@ const StyledTreeItem = styled.div`
             height: 0;
         }
         .treeItem-enter-active {
-            height: calc(${(props) => props.num} * 22px);
+            height: calc(${(props) => props.num} * 25px);
             transition: all 100ms;
         }
         .treeItem-exit {
-            height: calc(${(props) => props.num} * 22px);
+            height: calc(${(props) => props.num} * 25px);
         }
         .treeItem-exit-active {
             overflow-y: hidden;
