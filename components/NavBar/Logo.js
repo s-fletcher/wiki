@@ -20,20 +20,65 @@ const StyledLogo = styled.a`
         font-size: 1.25em;
         margin-left: 5px;
     }
-    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+
+    @media screen and (max-width: ${(props) => props.theme.mobileWidth}) {
         display: none;
     }
 `;
 
-function Logo() {
-    return (
-        <Link href="/">
-            <StyledLogo>
-                <img src="/assets/images/logo.png" alt="logo" />
-                <p>Wiki</p>
-            </StyledLogo>
-        </Link>
-    );
+const StyledHamburger = styled.div`
+    margin: -2px -20px 0 5px;
+    .hamburger {
+        padding: 12px 20px;
+        cursor: pointer;
+        div {
+            margin: 5px 0;
+            height: 3px;
+            width: 25px;
+            border-radius: 5px;
+            background: ${(props) => props.theme.gray};
+        }
+        .middle {
+            width: 20px;
+        }
+    }
+`;
+
+function Logo({ tree, setTree, collapseWidth }) {
+    const [windowWidth, setWindowWidth] = React.useState();
+
+    React.useEffect(() => {
+        setWindowWidth(window.innerWidth);
+        window.addEventListener("resize", () => {
+            setWindowWidth(window.innerWidth);
+        });
+    }, []);
+
+    // React.useEffect(() => {
+    //     return () => {
+    //     };
+    // }, []);
+
+    if (windowWidth > collapseWidth) {
+        return (
+            <Link href="/">
+                <StyledLogo>
+                    <img src="/assets/images/logo.png" alt="logo" />
+                    <p>Wiki</p>
+                </StyledLogo>
+            </Link>
+        );
+    } else {
+        return (
+            <StyledHamburger>
+                <div className="hamburger" onClick={() => setTree(!tree)}>
+                    <div className="top" />
+                    <div className="middle" />
+                    <div className="bottom" />
+                </div>
+            </StyledHamburger>
+        );
+    }
 }
 
 export default Logo;
