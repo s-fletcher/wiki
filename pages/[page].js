@@ -100,9 +100,9 @@ function Page() {
     }
 
     function onMenuClose() {
-        document.getElementById("page").style.transform = "translateX(0px)";
-        document.getElementById("searchBar").style.transform = "translateX(0px)";
-        document.getElementById("buttons").style.transform = "translateX(0px)";
+        document.getElementById("page").style.transform = "";
+        document.getElementById("searchBar").style.transform = "";
+        document.getElementById("buttons").style.transform = "";
     }
 
     return (
@@ -121,6 +121,7 @@ function Page() {
                     <CSSTransition in={menuOpen} timeout={200} classNames="tree" unmountOnExit>
                         <div className="treeContainer">
                             <Tree
+                                collapseWidth={collapseWidth}
                                 className="test"
                                 data={data}
                                 loading={loading}

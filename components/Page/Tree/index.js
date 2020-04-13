@@ -16,16 +16,16 @@ const StyledTree = styled.div`
         position: absolute;
         width: 100%;
         overflow-y: scroll;
-        height: calc(100vh - 50px);
+        height: calc(100vh - 85px);
     }
     .sticky {
         top: 25px;
         width: 230px;
-        position: fixed;
+        position: fixed !important;
     }
 `;
 
-function Tree({ setMenu, currentPage, loading, error, data }) {
+function Tree({ collapseWidth, fromMenu, setMenu, currentPage, loading, error, data }) {
     /** RETURN Loading */
     if (loading) return <p>Loading...</p>;
     /** RETURN Error */
@@ -33,25 +33,27 @@ function Tree({ setMenu, currentPage, loading, error, data }) {
     /** RETURN Dashboard */
 
     React.useEffect(() => {
-        window.onscroll = function () {
-            myFunction();
-        };
+        if (!fromMenu) {
+            window.onscroll = function () {
+                if (window.innerWidth > collapseWidth) handleScroll();
+            };
 
-        var header = document.getElementById("stickyTree");
-        var sticky = header.getBoundingClientRect().top - 25;
+            var header = document.getElementById("stickyTree");
+            var sticky = 60;
 
-        function myFunction() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
+            function handleScroll() {
+                if (window.pageYOffset > sticky) {
+                    header.classList.add("sticky");
+                } else {
+                    header.classList.remove("sticky");
+                }
             }
         }
     }, []);
 
     return (
         <StyledTree>
-            <div className="items" id="stickyTree">
+            <div className="items" id={!fromMenu ? "stickyTree" : ""}>
                 {Object.keys(data.categories).map((i) => {
                     return (
                         <TreeItem
