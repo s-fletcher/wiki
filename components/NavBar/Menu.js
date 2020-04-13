@@ -110,7 +110,7 @@ function Menu({data}) {
                 <div className="menu">
                     <div className="menuContent">
                         <Logo override={true} />
-                        <Tree currentPage={page} setMenu={setMenu} data={data} />
+                        <Tree currentPage={page} fromMenu={true} setMenu={setMenu} data={data} />
                     </div>
                 </div>
             </CSSTransition>

@@ -22,6 +22,9 @@ const StyledContent = styled.div`
         margin-bottom: 20px;
         border-bottom: 2px solid ${(props) => props.theme.lightGray};
     }
+    p {
+        margin-bottom: 20px;
+    }
 `;
 
 function Content({ page, collapseWidth }) {
@@ -44,40 +47,66 @@ function Content({ page, collapseWidth }) {
             <StyledContent collapseWidth={collapseWidth} id="pageContent">
                 <h1>{data.page.name}</h1>
                 <p>
-                    Setting up the room Two laptops are needed in the room to attest for manual
-                    check-ins. Don't forget laptop chargers. Badges need to be labeled by shapes
-                    before check-in starts. X's on the badges means they have a dietary restriction
-                    There should then be 5 other shapes of the same quantity given to hackers. The
-                    shapes go as followed: Squares Circles Triangles Hearts Stars Directing the
-                    hacker to the check-in room Staff/volunteers are needed at both entrances
-                    guiding hackers into the correct area by holding signs with arrows and welcoming
-                    them in. If volunteers don't show up or we don't have enough resources, signs
-                    need to be posted starting from the entrance to the check-in room. Controlling
-                    traffic Traffic needs to be controlled by hackers entering with the room’s West
-                    doors and exiting with the room’s East doors. The three step process should be
-                    obvious to the hackers by using either stanchions or a carpet. See it as showing
-                    the hacker a yellow brick road. Hacker Walk Through The check in process should
-                    be quick and easy in the eyes of the hacker. Divided into three stations, the
-                    following includes what people and their roles needed. Step 1: Checking in Two
-                    staff members are assigned at the check-in station. Their role includes helping
-                    check in hackers, but more importantly, answer questions or handle any
-                    complications. Two volunteers are assigned at the check in station. The role of
-                    these two people is to check hackers in and direct all questions to the staff
-                    members. It’s important that volunteers send questions to the staff members to
-                    prevent line congestion. Once checked in, volunteers should direct hackers to
-                    pick up their badge. Step 2: Badge pickup One staff member is assigned to the
-                    badge pickup station. Their job is to assist the volunteers, but more
-                    importantly, answer any questions from the hackers while periodically looking
-                    over the swag table to restock. Two volunteers are assigned at the badge pickup
-                    station. When hackers approach, the first thing volunteers should ask is “Do you
-                    have any dietary restrictions?” If so, hand them the designated badge. Then have
-                    hackers fill out their own badge. It's important to have space on the table for
-                    hackers to write their names on the badges. Volunteers are not to fill out the
-                    badges themselves to prevent congestion. Once done, volunteers should direct
-                    hackers to the swag station, then exit out the West door, and then hang out
-                    until the opening ceremony begins. Step 3: Swag pickup No one is assigned at
-                    this station. Hackers should know to pick up the swag and then exit out the West
-                    door.
+                    Lorem ipsum dolor sit amet, in tale dolorem conclusionemque vix, et vis minim
+                    quaerendum intellegebat. Virtute repudiare repudiandae ei ius. Ea eirmod docendi
+                    pertinax eum, an vis cibo habemus patrioque. Aeque accusata facilisis vix te,
+                    persius alterum nonumes vis ei, ei sapientem prodesset nec. Vis quod labores
+                    expetenda no, an minim oporteat vis.
+                </p>
+                <p>
+                    Ne impetus omnesque moderatius has, te case adipiscing has. Semper sensibus quo
+                    in, id officiis gubergren sententiae usu. Vim eu esse causae, ut quo nulla
+                    animal. Vidit fabellas inciderint no vis, usu an dico munere doming. At nonumy
+                    vivendum expetendis qui, eam no soluta fabellas constituto. Te his perfecto
+                    conclusionemque. Pri an noster inermis scripserit, no quas verear blandit has.
+                </p>
+                <p>
+                    Vis deleniti principes in, ne his natum ridens putant. Et tation delenit
+                    nominavi eos, vitae adolescens interesset ea duo. Ea dictas audire eum, id quo
+                    facer voluptaria. Disputando mediocritatem ea nam, ea quo solet nominavi, eam cu
+                    error maluisset. Nam modo ornatus no. Est autem fierent ei, facilis singulis
+                    laboramus qui no. Minim explicari sea ei, id impetus omittam sed.
+                </p>
+                <p>
+                    Inani vituperatoribus mei ut, quando adversarium ea vel. In quo tibique
+                    moderatius. Mei te partem atomorum salutandi, alterum recusabo dignissim sed eu.
+                    Pro senserit urbanitas constituto eu, pericula electram ocurreret ne duo.
+                </p>
+                <p>
+                    Eu pro iudico oporteat evertitur. Te dico interesset sed, usu illum patrioque
+                    an. Ei admodum corrumpit repudiandae ius, an mea decore saperet. Mea an justo
+                    aperiri eligendi, at senserit gubergren vim. An vim aeterno regione admodum.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, in tale dolorem conclusionemque vix, et vis minim
+                    quaerendum intellegebat. Virtute repudiare repudiandae ei ius. Ea eirmod docendi
+                    pertinax eum, an vis cibo habemus patrioque. Aeque accusata facilisis vix te,
+                    persius alterum nonumes vis ei, ei sapientem prodesset nec. Vis quod labores
+                    expetenda no, an minim oporteat vis.
+                </p>
+                <p>
+                    Ne impetus omnesque moderatius has, te case adipiscing has. Semper sensibus quo
+                    in, id officiis gubergren sententiae usu. Vim eu esse causae, ut quo nulla
+                    animal. Vidit fabellas inciderint no vis, usu an dico munere doming. At nonumy
+                    vivendum expetendis qui, eam no soluta fabellas constituto. Te his perfecto
+                    conclusionemque. Pri an noster inermis scripserit, no quas verear blandit has.
+                </p>
+                <p>
+                    Vis deleniti principes in, ne his natum ridens putant. Et tation delenit
+                    nominavi eos, vitae adolescens interesset ea duo. Ea dictas audire eum, id quo
+                    facer voluptaria. Disputando mediocritatem ea nam, ea quo solet nominavi, eam cu
+                    error maluisset. Nam modo ornatus no. Est autem fierent ei, facilis singulis
+                    laboramus qui no. Minim explicari sea ei, id impetus omittam sed.
+                </p>
+                <p>
+                    Inani vituperatoribus mei ut, quando adversarium ea vel. In quo tibique
+                    moderatius. Mei te partem atomorum salutandi, alterum recusabo dignissim sed eu.
+                    Pro senserit urbanitas constituto eu, pericula electram ocurreret ne duo.
+                </p>
+                <p>
+                    Eu pro iudico oporteat evertitur. Te dico interesset sed, usu illum patrioque
+                    an. Ei admodum corrumpit repudiandae ius, an mea decore saperet. Mea an justo
+                    aperiri eligendi, at senserit gubergren vim. An vim aeterno regione admodum.
                 </p>
             </StyledContent>
         </div>
