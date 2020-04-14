@@ -4,7 +4,7 @@ import styled from "styled-components";
 const modules = {
     toolbar: [
         [{ header: "1" }, { header: "2" }, { header: "3" }],
-        ["bold", "italic", "underline", "strike", "blockquote", "code-block"],
+        ["bold", "italic", "underline", "strike", "blockquote", "code"],
         [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
         ["link", "image"],
         ["clean"],
@@ -19,7 +19,7 @@ const formats = [
     "underline",
     "strike",
     "blockquote",
-    "code-block",
+    "code",
     "list",
     "bullet",
     "indent",
@@ -48,6 +48,10 @@ const StyledEditor = styled.div`
         li {
             margin: 3px 0;
         }
+        code {
+            font-family: Menlo;
+            color: #444;
+        }
     }
     .ql-toolbar {
         visibility: hidden;
@@ -68,9 +72,6 @@ const StyledEditor = styled.div`
             font-size: 1em;
             color: #444;
             margin-top: -2px;
-            /* padding: 0 2px; */
-        }
-        .ql-header:last-of-type {
         }
     }
     .ql-container {
