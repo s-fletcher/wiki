@@ -50,7 +50,6 @@ function Category(props) {
                                 url={props.pages[page].serializedName}
                                 name={props.pages[page].name}
                                 status={props.pages[page].status}
-                                index={props.pages[page].index}
                             />
                         );
                     })}

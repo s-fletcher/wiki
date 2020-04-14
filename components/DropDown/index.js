@@ -68,7 +68,7 @@ function DropDown(props) {
                 unmountOnExit
                 classNames="dropdown"
             >
-                <StyledDropDown right="-32px" className="cancelClose">
+                <StyledDropDown right={props.page ? "-85px" : "-32px"} className="cancelClose">
                     <Settings setModal={setModal} />
                 </StyledDropDown>
             </CSSTransition>
@@ -80,7 +80,7 @@ function DropDown(props) {
                 unmountOnExit
                 classNames="dropdown"
             >
-                <StyledDropDown right="-82px" className="cancelClose">
+                <StyledDropDown right={props.page ? "-128px" : "-82px"} className="cancelClose">
                     <Add setModal={setModal} />
                 </StyledDropDown>
             </CSSTransition>

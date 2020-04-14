@@ -3,10 +3,6 @@
  * and their associated pages. From here you can edit the category attributes and page
  * attributes. The navbar component is also called to allow the user to filter, add
  * pages & categories, and view the settings.
- * 
- * TODO:
- *  - See Category.js component
- *  - See PageItem.js component
  */
 
 import { useQuery, gql } from "@apollo/client";
@@ -20,13 +16,11 @@ const CATEGORIES = gql`
         categories(orderBy: index_ASC) {
             id
             name
-            index
             emoji
             pages(orderBy: index_ASC) {
                 name
                 serializedName
                 status
-                index
             }
         }
     }
@@ -41,12 +35,12 @@ const StyledIndex = styled.div`
     padding: 0 50px;
     text-align: left;
     position: relative;
-    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+    @media screen and (max-width: ${(props) => props.theme.mobileWidth}) {
         padding: 0 20px;
     }
 `;
 
-function Index(props) {
+function Index() {
     const { loading, error, data, refetch } = useQuery(CATEGORIES);
 
     /** RETURN Loading */
@@ -58,7 +52,16 @@ function Index(props) {
             </div>
         );
     /** RETURN Error */
-    if (error) return <p>{error.message}</p>;
+    if (error)
+        return (
+            <div>
+                <NavBar />
+                <p>{error.message}</p>
+            </div>
+        );
+
+        console.log(data.categories.length === 0);
+        
     /** RETURN Dashboard */
     return (
         <div>
@@ -68,12 +71,12 @@ function Index(props) {
             <NavBar data={data} refetch={refetch} settings add filter search />
             {/* Iterates through categories and displays them */}
             <StyledIndex>
-                {Object.keys(data.categories).map((i) => {
+                {data.categories.length === 0 ? <p>There is nothing here...</p> :
+                Object.keys(data.categories).map((i) => {
                     return (
                         <Category
                             key={data.categories[i].name}
                             name={data.categories[i].name}
-                            index={data.categories[i].index}
                             emoji={data.categories[i].emoji}
                             pages={data.categories[i].pages}
                         />
