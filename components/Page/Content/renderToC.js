@@ -38,12 +38,8 @@ function renderToC(content) {
         }
         if (item.tagName === "H1") {
             result.push(
-                <div>
-                    <p
-                        key={Math.random()}
-                        onClick={(e) => goTo(e, "h1")}
-                        className="toc-1 toc-item"
-                    >
+                <div key={Math.random()}>
+                    <p onClick={(e) => goTo(e, "h1")} className="toc-1 toc-item">
                         {item.innerHTML}
                     </p>
                 </div>
@@ -52,12 +48,8 @@ function renderToC(content) {
         } else if (item.tagName === "H2") {
             if (level === 1 || level === 2 || level === 3) {
                 result.push(
-                    <div>
-                        <p
-                            key={Math.random()}
-                            onClick={(e) => goTo(e, "h2")}
-                            className="toc-2 toc-item"
-                        >
+                    <div key={Math.random()}>
+                        <p onClick={(e) => goTo(e, "h2")} className="toc-2 toc-item">
                             {item.innerHTML}
                         </p>
                     </div>
@@ -65,12 +57,8 @@ function renderToC(content) {
                 level = 2;
             } else {
                 result.push(
-                    <div>
-                        <p
-                            key={Math.random()}
-                            onClick={(e) => goTo(e, "h2")}
-                            className="toc-1 toc-item"
-                        >
+                    <div key={Math.random()}>
+                        <p onClick={(e) => goTo(e, "h2")} className="toc-1 toc-item">
                             {item.innerHTML}
                         </p>
                     </div>
@@ -80,36 +68,24 @@ function renderToC(content) {
         } else if (item.tagName === "H3") {
             if (level === 0 || level === 1) {
                 result.push(
-                    <div>
-                        <p
-                            key={Math.random()}
-                            onClick={(e) => goTo(e, "h3")}
-                            className="toc-2 toc-item"
-                        >
+                    <div key={Math.random()}>
+                        <p onClick={(e) => goTo(e, "h3")} className="toc-2 toc-item">
                             {item.innerHTML}
                         </p>
                     </div>
                 );
             } else if (level === 2 || level === 3) {
                 result.push(
-                    <div>
-                        <p
-                            key={Math.random()}
-                            onClick={(e) => goTo(e, "h3")}
-                            className="toc-3 toc-item"
-                        >
+                    <div key={Math.random()}>
+                        <p onClick={(e) => goTo(e, "h3")} className="toc-3 toc-item">
                             {item.innerHTML}
                         </p>
                     </div>
                 );
             } else {
                 result.push(
-                    <div>
-                        <p
-                            key={Math.random()}
-                            onClick={(e) => goTo(e, "h3")}
-                            className="toc-1 toc-item"
-                        >
+                    <div key={Math.random()}>
+                        <p onClick={(e) => goTo(e, "h3")} className="toc-1 toc-item">
                             {item.innerHTML}
                         </p>
                     </div>

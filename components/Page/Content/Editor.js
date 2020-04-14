@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { gql, useMutation } from "@apollo/client";
 
 // Modules for editor
 const modules = {
@@ -90,8 +91,32 @@ const StyledEditor = styled.div`
     }
 `;
 
-function Editor({ content, readOnly }) {
+const EDIT_CONTENT = gql`
+    mutation EditContent($pageSerial: String!, $userId: ID!, $content: String!) {
+        editContent(pageSerial: $pageSerial, userId: $userId, content: $content) {
+            content
+        }
+    }
+`;
+
+function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
+    const [editContent, data] = useMutation(EDIT_CONTENT);
+
+    // When saving, update the save state to display to user
+    React.useEffect(() => {
+        setSaving(data.loading);
+    }, [data.loading])
+
+    // On change of content, update the content state and the database.
+    function handleChange(val) {
+        setContent(val);
+        editContent({
+            variables: { pageSerial: pageSerial, userId: "demo-user", content: val },
+        });
+    }
+
     if (document) {
+        // Get quill after document is rendered due to not supporting SSR
         const Quill = require("react-quill");
         return (
             <StyledEditor>
@@ -99,7 +124,7 @@ function Editor({ content, readOnly }) {
                     placeholder="There is nothing here..."
                     readOnly={readOnly}
                     value={content}
-                    // onChange={this.handleChange}
+                    onChange={handleChange}
                     modules={modules}
                     formats={formats}
                 />

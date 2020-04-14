@@ -32,6 +32,7 @@ function Tree({ collapseWidth, fromMenu, setMenu, currentPage, loading, error, d
     if (error) return <p>{error.message}</p>;
     /** RETURN Dashboard */
 
+    // On component mount, add scroll listener to keep tree in viewport on scroll
     React.useEffect(() => {
         if (!fromMenu) {
             window.onscroll = function () {
@@ -39,8 +40,10 @@ function Tree({ collapseWidth, fromMenu, setMenu, currentPage, loading, error, d
             };
 
             var header = document.getElementById("stickyTree");
-            var sticky = 60;
+            // This is the height of the navbar
+            var sticky = document.getElementById("navbar").offsetHeight;
 
+            // Adds sticky class to tree once scrolls past height of navbar
             function handleScroll() {
                 if (window.pageYOffset > sticky) {
                     header.classList.add("sticky");
@@ -54,6 +57,7 @@ function Tree({ collapseWidth, fromMenu, setMenu, currentPage, loading, error, d
     return (
         <StyledTree>
             <div className="items" id={!fromMenu ? "stickyTree" : ""}>
+                {/* Renders all individual categories with their page children */}
                 {Object.keys(data.categories).map((i) => {
                     return (
                         <TreeItem

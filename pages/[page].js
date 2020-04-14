@@ -4,8 +4,8 @@
  * demo-page. It's basically a parent for all the pages.
  *
  * TODO:
- *  - Implement viewing the page's content
- *  - Implement editing the page's content
+ *  - Click on header to copy link and refer to it.
+ *  - Collaborative editing
  */
 
 import { useRouter } from "next/router";
@@ -78,14 +78,18 @@ const StyledPage = styled.div`
 const collapseWidth = 800;
 
 function Page() {
+    // Fetching category data for tree component
     const { loading, error, data, refetch } = useQuery(CATEGORIES);
+    // Whether menu bar is open for mobile or not
     const [menuOpen, setMenuOpen] = React.useState(true);
+    // Getting the page name in the router
     const router = useRouter();
-    
     var page = router.asPath.substring(1);
-    
+
+    // Whether the page is being edited or not
     const [edit, setEdit] = React.useState(false);
 
+    // On component mount, set whether menu should be open or not and listen for events
     React.useEffect(() => {
         setMenuOpen(window.innerWidth > collapseWidth);
         window.addEventListener("resize", handleResize);
@@ -93,6 +97,8 @@ function Page() {
         document.addEventListener("menuOpen", onMenuOpen);
         document.addEventListener("menuClose", onMenuClose);
     }, []);
+
+    // On component unmount, remove event listeners
     React.useEffect(() => {
         return () => {
             window.removeEventListener("resize", handleResize);
@@ -101,6 +107,7 @@ function Page() {
         };
     }, []);
 
+    // Called when resizing window to auto close menu bar
     function handleResize() {
         setMenuOpen(window.innerWidth > collapseWidth);
         if (window.innerWidth > collapseWidth) {
@@ -108,12 +115,13 @@ function Page() {
         }
     }
 
+    // Change styling whenever menu opens
     function onMenuOpen() {
         document.getElementById("page").style.transform = "translateX(270px)";
         document.getElementById("searchBar").style.transform = "translateX(220px)";
         document.getElementById("buttons").style.transform = "translateX(220px)";
     }
-
+    // Change styling whenever menu closes
     function onMenuClose() {
         document.getElementById("page").style.transform = "";
         document.getElementById("searchBar").style.transform = "";
@@ -122,6 +130,7 @@ function Page() {
 
     return (
         <div>
+            {/* Render navbar and send data so it can render the mobile version of the tree */}
             <NavBar
                 menuOpen={menuOpen}
                 maxWidth={maxWidth}
@@ -134,7 +143,13 @@ function Page() {
             />
             <StyledPage id="page" edit={edit}>
                 <div className="container">
-                    <CSSTransition in={menuOpen && !edit} timeout={200} classNames="tree" unmountOnExit>
+                    {/* Render tree if menu should be open and not being edited (LEFT PANE) */}
+                    <CSSTransition
+                        in={menuOpen && !edit}
+                        timeout={200}
+                        classNames="tree"
+                        unmountOnExit
+                    >
                         <div className="treeContainer">
                             <Tree
                                 collapseWidth={collapseWidth}
@@ -146,7 +161,13 @@ function Page() {
                             />
                         </div>
                     </CSSTransition>
-                    <Content setEdit={setEdit} collapseWidth={collapseWidth} page={page} />
+                    {/* Render content (RIGHT PANE) */}
+                    <Content
+                        setEdit={setEdit}
+                        edit={edit}
+                        collapseWidth={collapseWidth}
+                        page={page}
+                    />
                 </div>
             </StyledPage>
         </div>
