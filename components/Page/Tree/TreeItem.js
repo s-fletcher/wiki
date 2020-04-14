@@ -68,6 +68,7 @@ function TreeItem({ setMenu, name, emoji, pages, currentPage }) {
         var result = [];
         for (var i in pages) {
             if (pages[i].serializedName === currentPage)
+                // Page is the active page, add active class to it and no click event
                 result.push(
                     <p key={pages[i].serializedName} className="active item">
                         {pages[i].name}
@@ -87,10 +88,12 @@ function TreeItem({ setMenu, name, emoji, pages, currentPage }) {
 
     return (
         <StyledTreeItem expanded={expanded} num={pages.length}>
+            {/* Category name, click to close and open */}
             <div onClick={() => setExpanded(!expanded)} className="header">
                 <h3>{name}</h3>
                 <MdKeyboardArrowRight className="icon" />
             </div>
+            {/* Pages below the header, a conditional mount */}
             <div className="pages">
                 <CSSTransition classNames="treeItem" in={expanded} timeout={100} unmountOnExit>
                     <div>{renderChildren()}</div>

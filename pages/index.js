@@ -3,10 +3,6 @@
  * and their associated pages. From here you can edit the category attributes and page
  * attributes. The navbar component is also called to allow the user to filter, add
  * pages & categories, and view the settings.
- *
- * TODO:
- *  - See Category.js component
- *  - See PageItem.js component
  */
 
 import { useQuery, gql } from "@apollo/client";
