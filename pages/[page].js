@@ -33,13 +33,14 @@ const CATEGORIES = gql`
 var maxWidth = 1200;
 
 const StyledPage = styled.div`
-    background: ${(props) => (props.edit ? "red" : "unset")};
+    background: ${(props) => (props.edit ? "rgba(29,30,32,0)" : "unset")};
     transition: background 0.5s, transform 0.2s;
     min-height: calc(100vh - 60px);
     text-align: left;
     .container {
         padding: 25px;
         display: flex;
+        position: relative;
         max-width: ${`${maxWidth}px`};
         margin: auto;
     }
@@ -129,7 +130,7 @@ function Page() {
             />
             <StyledPage id="page" edit={edit}>
                 <div className="container">
-                    <CSSTransition in={menuOpen} timeout={200} classNames="tree" unmountOnExit>
+                    <CSSTransition in={menuOpen && !edit} timeout={200} classNames="tree" unmountOnExit>
                         <div className="treeContainer">
                             <Tree
                                 collapseWidth={collapseWidth}
@@ -141,7 +142,7 @@ function Page() {
                             />
                         </div>
                     </CSSTransition>
-                    <Content collapseWidth={collapseWidth} page={page} />
+                    <Content setEdit={setEdit} collapseWidth={collapseWidth} page={page} />
                 </div>
             </StyledPage>
         </div>

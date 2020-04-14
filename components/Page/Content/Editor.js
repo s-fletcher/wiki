@@ -50,19 +50,39 @@ const StyledEditor = styled.div`
         }
     }
     .ql-toolbar {
-        display: none;
+        visibility: hidden;
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
-        padding: 17px 0;
+        padding: 18px 0;
         border: none !important;
         z-index: 100;
         text-align: center;
         background: white;
+        transition: opacity 0.2s;
+        opacity: 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        .ql-header {
+            font-weight: 900;
+            font-size: 1em;
+            color: #444;
+            margin-top: -2px;
+            /* padding: 0 2px; */
+        }
+        .ql-header:last-of-type {
+        }
     }
     .ql-container {
         border: none !important;
+        .ql-blank {
+            white-space: nowrap;
+            position: relative;
+            /* left: -15px; */
+        }
+        .ql-blank::before {
+            left: 0;
+        }
     }
     .ql-editor {
         padding: 0;
@@ -75,9 +95,9 @@ function Editor({ content, readOnly }) {
         return (
             <StyledEditor>
                 <Quill
+                    placeholder="There is nothing here..."
                     readOnly={readOnly}
                     value={content}
-                    placeholder="There is nothing here..."
                     // onChange={this.handleChange}
                     modules={modules}
                     formats={formats}
