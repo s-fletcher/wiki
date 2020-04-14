@@ -48,21 +48,25 @@ const StyledPage = styled.div`
         opacity: 0;
         transform: translateX(-100px);
         width: 0;
+        margin-right: 0;
     }
     .tree-enter-active {
         opacity: 1;
         width: 230px;
         transform: translateX(0px);
         transition: 0.2s;
+        margin-right: 30px;
     }
     .tree-exit {
         width: 230px;
         transform: translateX(0px);
         opacity: 1;
+        margin-right: 30px;
     }
     .tree-exit-active {
         width: 0;
         opacity: 0;
+        margin-right: 0;
         transition: 0.2s;
         transform: translateX(-100px);
     }
