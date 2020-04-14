@@ -1,12 +1,13 @@
 /**
- * Helper function for NavBar which renders the logo
+ * Helper function for NavBar which renders the logo. An abstraction from 
+ * LeftParent.
  */
 
 import styled from "styled-components";
 import Link from "next/link";
 
 const StyledLogo = styled.a`
-    height: calc(100% - 26px);
+    height: 34px;
     cursor: pointer;
     align-items: center;
     display: inline-flex;
@@ -20,15 +21,16 @@ const StyledLogo = styled.a`
         font-size: 1.25em;
         margin-left: 5px;
     }
-    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
-        display: none;
+
+    @media screen and (max-width: ${(props) => props.theme.mobileWidth}) {
+        display: ${(props) => (props.override ? "inline-flex" : "none")};
     }
 `;
 
-function Logo() {
+function Logo({ override }) {
     return (
         <Link href="/">
-            <StyledLogo>
+            <StyledLogo id="logo" override={override}>
                 <img src="/assets/images/logo.png" alt="logo" />
                 <p>Wiki</p>
             </StyledLogo>
