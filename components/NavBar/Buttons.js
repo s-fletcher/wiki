@@ -13,7 +13,8 @@ import DropDown from "../DropDown";
 const StyledButtons = styled.div`
     margin-right: 10px;
     white-space: nowrap;
-    min-width: 150px;
+    /* min-width: 150px; */
+    transition: transform 0.2s;
     text-align: right;
     .filter {
         height: 20px;
@@ -34,9 +35,9 @@ const StyledButtons = styled.div`
         transition: color 0.5s;
     }
     .icon:hover {
-        color: ${props => props.theme.blue};
+        color: ${(props) => props.theme.blue};
     }
-    @media screen and (max-width: ${props => props.theme.mobileWidth}) {
+    @media screen and (max-width: ${(props) => props.theme.mobileWidth}) {
         margin-right: 0;
     }
 `;
@@ -82,7 +83,7 @@ function Buttons(props) {
     
 
     return (
-        <StyledButtons>
+        <StyledButtons id="buttons">
             {props.filter ? (
                 <Tooltip title={type === "filter" ? "" : "Filter"}>
                     <IconButton id="filter" onClick={() => handleClick("filter")} className="icon">
@@ -108,7 +109,7 @@ function Buttons(props) {
                     </IconButton>
                 </Tooltip>
             ) : null}
-            <DropDown data={props.data} refetch={props.refetch} type={type} />
+            <DropDown page={props.page} data={props.data} refetch={props.refetch} type={type} />
         </StyledButtons>
     );
 }
