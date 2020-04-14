@@ -35,7 +35,7 @@ const StyledNavBar = styled.div`
 
 function NavBar(props) {
     return (
-        <StyledNavBar maxWidth={props.maxWidth === undefined ? 1000 : props.maxWidth + 50}>
+        <StyledNavBar maxWidth={props.maxWidth === undefined ? 1000 : props.maxWidth + 50} id="navbar">
             <div className="container">
                 <LeftParent data={props.data} menuOpen={props.menuOpen} />
                 {props.search ? <Search /> : null}
