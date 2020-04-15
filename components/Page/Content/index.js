@@ -152,7 +152,11 @@ function Content({ edit, setEdit, page, collapseWidth }) {
                         updating ? (
                             <p className="message">Updating...</p>
                         ) : (
-                            <p className="message">Last edited by {data.page.modifiedBy.name}</p>
+                            data.page.modifiedBy && (
+                                <p className="message">
+                                    Last edited by {data.page.modifiedBy.name}
+                                </p>
+                            )
                         )
                     ) : saving ? (
                         <p className="message">Saving...</p>
