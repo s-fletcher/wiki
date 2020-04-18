@@ -20,7 +20,7 @@ const ToC = styled.div`
 
 function goTo(event, tag) {
     for (var element of document.getElementsByClassName("quill")[0].getElementsByTagName(tag)) {
-        if (element.innerHTML === event.target.innerHTML) {
+        if (element.textContent === event.target.textContent) {
             element.scrollIntoView();
         }
     }
@@ -40,7 +40,7 @@ function renderToC(content) {
             result.push(
                 <div key={Math.random()}>
                     <p onClick={(e) => goTo(e, "h1")} className="toc-1 toc-item">
-                        {item.innerHTML}
+                        {item.textContent}
                     </p>
                 </div>
             );
@@ -50,7 +50,7 @@ function renderToC(content) {
                 result.push(
                     <div key={Math.random()}>
                         <p onClick={(e) => goTo(e, "h2")} className="toc-2 toc-item">
-                            {item.innerHTML}
+                            {item.textContent}
                         </p>
                     </div>
                 );
@@ -59,7 +59,7 @@ function renderToC(content) {
                 result.push(
                     <div key={Math.random()}>
                         <p onClick={(e) => goTo(e, "h2")} className="toc-1 toc-item">
-                            {item.innerHTML}
+                            {item.textContent}
                         </p>
                     </div>
                 );
@@ -70,7 +70,7 @@ function renderToC(content) {
                 result.push(
                     <div key={Math.random()}>
                         <p onClick={(e) => goTo(e, "h3")} className="toc-2 toc-item">
-                            {item.innerHTML}
+                            {item.textContent}
                         </p>
                     </div>
                 );
@@ -78,7 +78,7 @@ function renderToC(content) {
                 result.push(
                     <div key={Math.random()}>
                         <p onClick={(e) => goTo(e, "h3")} className="toc-3 toc-item">
-                            {item.innerHTML}
+                            {item.textContent}
                         </p>
                     </div>
                 );
@@ -86,7 +86,7 @@ function renderToC(content) {
                 result.push(
                     <div key={Math.random()}>
                         <p onClick={(e) => goTo(e, "h3")} className="toc-1 toc-item">
-                            {item.innerHTML}
+                            {item.textContent}
                         </p>
                     </div>
                 );
