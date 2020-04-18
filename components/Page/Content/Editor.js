@@ -101,18 +101,39 @@ const EDIT_CONTENT = gql`
 
 function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
     const [editContent, data] = useMutation(EDIT_CONTENT);
+    const [unsavedContent, setUnsavedContent] = React.useState("");
 
-    // When saving, update the save state to display to user
+    // When being edited, check for a change every 2 seconds and save.
     React.useEffect(() => {
-        setSaving(data.loading);
-    }, [data.loading])
+        if (!readOnly) {
+            const interval = setInterval(checkChange, 2000);
+            return () => clearInterval(interval);
+        }
+    });
 
-    // On change of content, update the content state and the database.
-    function handleChange(val) {
-        setContent(val);
+    // Checks if something changed and calls the saved function
+    function checkChange() {
+        if (unsavedContent.length > 0) {
+            console.log("Saving changes");
+            save(unsavedContent);
+            setUnsavedContent("");
+        }
+    }
+
+    // Saves passed variable
+    function save(val) {
         editContent({
             variables: { pageSerial: pageSerial, userId: "demo-user", content: val },
-        });
+        }).then(setSaving(false));
+    }
+
+    // On change of content, update the content state unsaved state and show that it is saving.
+    function handleChange(val, delta, source, editor) {
+        if (source === "user") {
+            setContent(val);
+            setUnsavedContent(val);
+            setSaving(true);
+        }
     }
 
     if (document) {

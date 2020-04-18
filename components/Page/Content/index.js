@@ -7,6 +7,7 @@ import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
 import { renderToC } from "./renderToC";
 import Editor from "./Editor";
+import useWarnIfUnsavedChanges from "./useWarnIfUnsavedChanges";
 
 const GET_PAGE = gql`
     query Page($serializedName: String!) {
@@ -67,6 +68,7 @@ function Content({ edit, setEdit, page, collapseWidth }) {
     const [updating, setUpdating] = React.useState(false);
     // Tells webapp if it is saving its data
     const [saving, setSaving] = React.useState(false);
+    useWarnIfUnsavedChanges(saving);
 
     // Every time the page is changed, refetch and set updating state
     React.useEffect(() => {
@@ -75,6 +77,12 @@ function Content({ edit, setEdit, page, collapseWidth }) {
             refetch().then(() => {
                 setUpdating(false);
             });
+        }
+        // When changing pages and is currently in edit mode (pressing back) then toggle edit
+        if (edit) {
+            toggleEdit();
+            setUpdating(false);
+            setSaving(false);
         }
     }, [page]);
 
@@ -91,6 +99,14 @@ function Content({ edit, setEdit, page, collapseWidth }) {
     if (error) return <p>{error.message}</p>;
     /** RETURN 404 when page does not exist */
     if (!data.page) return <h1 style={{ fontWeight: 400 }}>Page not found...</h1>;
+
+    const routeChangeStart = (url) => {
+        if (Router.asPath !== url && unsavedChanges && !confirm(message)) {
+            Router.events.emit("routeChangeError");
+            Router.replace(Router, Router.asPath, { swallow: true });
+            throw "Abort route change. Please ignore this error.";
+        }
+    };
 
     /**
      * Sets page to editing mode.
