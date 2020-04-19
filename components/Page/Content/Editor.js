@@ -3,6 +3,14 @@ import { gql, useMutation } from "@apollo/client";
 
 // Modules for editor
 const modules = {
+    imageCompress: {
+        quality: 0.7,
+        maxWidth: 500,
+        maxHeight: 500,
+        imageType: "image/jpeg",
+        debug: true,
+    },
+    magicUrl: true,
     toolbar: [
         [{ header: "1" }, { header: "2" }, { header: "3" }],
         ["bold", "italic", "underline", "strike", "blockquote", "code"],
@@ -136,12 +144,18 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
         }
     }
 
-    if (document) {
+    if (document && window) {
         // Get quill after document is rendered due to not supporting SSR
-        const Quill = require("react-quill");
+        const ReactQuill = require("react-quill");
+        const ImageCompress = require("quill-image-compress");
+        const MagicUrl = require("quill-magic-url");
+        ReactQuill.Quill.register({
+            "modules/imageCompress": ImageCompress.imageCompressor,
+            "modules/magicUrl": MagicUrl.default,
+        });
         return (
             <StyledEditor>
-                <Quill
+                <ReactQuill
                     placeholder="There is nothing here..."
                     readOnly={readOnly}
                     value={content}
