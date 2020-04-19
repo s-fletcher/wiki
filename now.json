@@ -4,5 +4,12 @@
         "SLACK_CLIENT_ID": "@slack_client_id",
         "SLACK_CLIENT_SECRET": "@slack_client_secret",
         "TEAM_ID": "@team_id"
+    },
+    "build": {
+        "env": {
+            "SLACK_CLIENT_ID": "@slack_client_id",
+            "SLACK_CLIENT_SECRET": "@slack_client_secret",
+            "TEAM_ID": "@team_id"
+        }
     }
 }
