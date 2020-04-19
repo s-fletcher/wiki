@@ -4,7 +4,8 @@
         "env": {
             "SLACK_CLIENT_ID": "@slack_client_id",
             "SLACK_CLIENT_SECRET": "@slack_client_secret",
-            "TEAM_ID": "@team_id"
+            "TEAM_ID": "@team_id",
+            "PRISMA_ENDPOINT": "@prisma_endpoint"
         }
     }
 }
