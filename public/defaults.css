@@ -32,3 +32,12 @@ html {
 .MuiButton-label {
     text-transform: none;
 }
+
+.tox-dialog * {
+    font-family: "Avenir" !important;
+}
+
+.tox-dialog textarea {
+    font-family: Menlo !important;
+    font-size: .9em !important;
+}

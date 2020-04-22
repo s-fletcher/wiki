@@ -100,14 +100,6 @@ function Content({ edit, setEdit, page, collapseWidth }) {
     /** RETURN 404 when page does not exist */
     if (!data.page) return <h1 style={{ fontWeight: 400 }}>Page not found...</h1>;
 
-    const routeChangeStart = (url) => {
-        if (Router.asPath !== url && unsavedChanges && !confirm(message)) {
-            Router.events.emit("routeChangeError");
-            Router.replace(Router, Router.asPath, { swallow: true });
-            throw "Abort route change. Please ignore this error.";
-        }
-    };
-
     /**
      * Sets page to editing mode.
      */
@@ -117,20 +109,18 @@ function Content({ edit, setEdit, page, collapseWidth }) {
             // Executes when transferring into edit mode
             document.getElementById("editButton").innerHTML = "Done";
             setTimeout(() => (document.getElementById("navbar").style.visibility = "hidden"), 100);
-            document.getElementsByClassName("ql-toolbar")[0].style.visibility = "visible";
-            document.getElementsByClassName("ql-toolbar")[0].style.opacity = 1;
-            document.getElementsByClassName("ql-header")[0].innerHTML = "H1";
-            document.getElementsByClassName("ql-header")[1].innerHTML = "H2";
-            document.getElementsByClassName("ql-header")[2].innerHTML = "H3";
+            document.getElementsByClassName("tox-toolbar-overlord")[0].style.visibility = "visible";
+            document.getElementsByClassName("tox-toolbar-overlord")[0].style.opacity = 1;
         } else {
             // Executes when transferring into viewing mode
             document.getElementById("navbar").style.visibility = "visible";
             setTimeout(
                 () =>
-                    (document.getElementsByClassName("ql-toolbar")[0].style.visibility = "hidden"),
+                    (document.getElementsByClassName("tox-toolbar-overlord")[0].style.visibility =
+                        "hidden"),
                 200
             );
-            document.getElementsByClassName("ql-toolbar")[0].style.opacity = 0;
+            document.getElementsByClassName("tox-toolbar-overlord")[0].style.opacity = 0;
             document.getElementById("editButton").innerHTML = "Edit";
         }
     }
