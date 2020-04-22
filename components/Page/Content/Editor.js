@@ -25,15 +25,23 @@ const ContentStyles = `
     h1,h2,h3 {
         font-weight: 500
     }
+    a {
+        color: #007FFF;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
 `;
 
 // Plugins for editor
 const plugins = "autolink lists link image imagetools code autoresize table paste codesample";
 // Editor toolbar
 const toolbar =
-    "h1 h2 h3 bold italic underline strikethrough | " +
+    "h1 h2 h3 | " +
+    "bold italic underline strikethrough | " +
     "bullist numlist outdent indent | " +
-    "image codesample table | " +
+    "link image codesample table | " +
     "removeformat";
 
 const StyledEditor = styled.div`
@@ -144,6 +152,27 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
             });
     }
 
+    // Called during setup of TinyMCE
+    function setup(editor) {
+        // Handles pressing on a link when in readOnly mode
+        function linkHandler(e) {
+            e.preventDefault();
+            window.open(e.target.getAttribute("href"), e.target.getAttribute("target"));
+        }
+
+        editor.on("SwitchMode", (e) => {
+            if (e.mode === "readonly") {
+                Array.from(editor.getDoc().querySelectorAll("a")).map((el) => {
+                    el.addEventListener("click", linkHandler);
+                });
+            } else {
+                Array.from(editor.getDoc().querySelectorAll("a")).map((el) => {
+                    el.removeEventListener("click", linkHandler);
+                });
+            }
+        });
+    }
+
     return (
         <StyledEditor>
             <TinyMCE
@@ -154,10 +183,17 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
                     menubar: false,
                     statusbar: false,
                     autoresize_bottom_margin: 30,
+                    link_title: false,
+                    link_quicklink: true,
+                    target_list: false,
+                    link_context_toolbar: true,
+                    default_link_target: "_blank",
                     content_style: ContentStyles,
                     plugins: plugins,
                     toolbar: toolbar,
+                    contextmenu: "link copy paste",
                     images_upload_handler: imageHandler,
+                    setup: (editor) => setup(editor),
                 }}
                 onEditorChange={handleChange}
             />
