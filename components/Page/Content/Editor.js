@@ -1,74 +1,49 @@
 import styled from "styled-components";
 import { gql, useMutation } from "@apollo/client";
+import { Editor as TinyMCE } from "@tinymce/tinymce-react";
+import Compress from "compress.js";
 
-// Modules for editor
-const modules = {
-    imageCompress: {
-        quality: 0.7,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageType: "image/jpeg",
-        debug: true,
-    },
-    magicUrl: true,
-    toolbar: [
-        [{ header: "1" }, { header: "2" }, { header: "3" }],
-        ["bold", "italic", "underline", "strike", "blockquote", "code"],
-        [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-        ["link", "image"],
-        ["clean"],
-    ],
-};
+// Content styles for editor
+const ContentStyles = `
+    * {
+        font-family: Avenir;
+        color: #1d1d1d;
+    } 
+    *:first-child {
+        margin-top: 0
+    } 
+    body {
+        margin: 0
+    } 
+    pre {
+        font-size: .85em !important; 
+        cursor:auto !important;
+    } 
+    pre * {
+        font-family: Menlo
+    } 
+    h1,h2,h3 {
+        font-weight: 500
+    }
+`;
 
-// Formats for editor
-const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "code",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-];
+// Plugins for editor
+const plugins = "autolink lists link image imagetools code autoresize table paste codesample";
+// Editor toolbar
+const toolbar =
+    "h1 h2 h3 bold italic underline strikethrough | " +
+    "bullist numlist outdent indent | " +
+    "image codesample table | " +
+    "removeformat";
 
 const StyledEditor = styled.div`
-    .ql-container {
-        font-size: 1em;
-        h1,
-        h2,
-        h3 {
-            font-weight: 700;
-            margin-top: 18px;
-            strong {
-                font-weight: 900;
-            }
-        }
-        * {
-            margin: 10px 0;
-        }
-        *:first-child {
-            margin-top: 0;
-        }
-        li {
-            margin: 3px 0;
-        }
-        code {
-            font-family: Menlo;
-            color: #444;
-        }
-    }
-    .ql-toolbar {
+    .tox-toolbar-overlord {
         visibility: hidden;
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
-        padding: 18px 0;
+        padding: 10.5px 0;
         border: none !important;
         z-index: 100;
         text-align: center;
@@ -76,26 +51,33 @@ const StyledEditor = styled.div`
         transition: opacity 0.2s;
         opacity: 0;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        .ql-header {
-            font-weight: 900;
-            font-size: 1em;
-            color: #444;
-            margin-top: -2px;
+        .tox-toolbar__primary {
+            background: none !important;
+            justify-content: center;
+            .tox-tbtn {
+                cursor: pointer;
+                span {
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+            }
+            .tox-tbtn--disabled {
+                cursor: not-allowed !important;
+                pointer-events: none;
+                span {
+                    cursor: not-allowed;
+                }
+            }
         }
     }
-    .ql-container {
+    .tox-tinymce {
         border: none !important;
-        .ql-blank {
-            white-space: nowrap;
-            position: relative;
-            /* left: -15px; */
-        }
-        .ql-blank::before {
-            left: 0;
-        }
     }
-    .ql-editor {
-        padding: 0;
+    .editor-placeholder {
+        margin-top: -68px;
+        margin-bottom: 46px;
+        font-style: italic;
+        opacity: 0.5;
     }
 `;
 
@@ -109,7 +91,7 @@ const EDIT_CONTENT = gql`
 
 function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
     const [editContent, data] = useMutation(EDIT_CONTENT);
-    const [unsavedContent, setUnsavedContent] = React.useState("");
+    const [unsavedContent, setUnsavedContent] = React.useState(null);
 
     // When being edited, check for a change every 2 seconds and save.
     React.useEffect(() => {
@@ -121,10 +103,10 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
 
     // Checks if something changed and calls the saved function
     function checkChange() {
-        if (unsavedContent.length > 0) {
+        if (unsavedContent !== null) {
             console.log("Saving changes");
             save(unsavedContent);
-            setUnsavedContent("");
+            setUnsavedContent(null);
         }
     }
 
@@ -136,36 +118,53 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
     }
 
     // On change of content, update the content state unsaved state and show that it is saving.
-    function handleChange(val, delta, source, editor) {
-        if (source === "user") {
+    function handleChange(val, editor, event) {
+        if (!readOnly) {
+            console.log(val);
             setContent(val);
             setUnsavedContent(val);
             setSaving(true);
         }
     }
 
-    if (document && window) {
-        // Get quill after document is rendered due to not supporting SSR
-        const ReactQuill = require("react-quill");
-        const ImageCompress = require("quill-image-compress");
-        const MagicUrl = require("quill-magic-url");
-        ReactQuill.Quill.register({
-            "modules/imageCompress": ImageCompress.imageCompressor,
-            "modules/magicUrl": MagicUrl.default,
-        });
-        return (
-            <StyledEditor>
-                <ReactQuill
-                    placeholder="There is nothing here..."
-                    readOnly={readOnly}
-                    value={content}
-                    onChange={handleChange}
-                    modules={modules}
-                    formats={formats}
-                />
-            </StyledEditor>
-        );
-    } else return null;
+    // Compresses and uploads image for TinyMCE image upload
+    function imageHandler(blobInfo, success, failure) {
+        const compress = new Compress();
+        const file = [blobInfo.blob()];
+        compress
+            .compress(file, {
+                size: 2, // the max size in MB, defaults to 2MB
+                quality: 0.75, // the quality of the image, max is 1,
+                maxWidth: 1000, // the max width of the output image, defaults to 1920px
+                maxHeight: 1000, // the max height of the output image, defaults to 1920px
+                resize: true, // defaults to true, set false if you do not want to resize the image width and height
+            })
+            .then((data) => {
+                success("data:" + blobInfo.blob().type + ";base64," + data[0].data);
+            });
+    }
+
+    return (
+        <StyledEditor>
+            <TinyMCE
+                apiKey="pmhesmdd6l3y6l6a67skj9o6hxhwah5g0e9zp657qo7ci68w"
+                value={content}
+                disabled={readOnly}
+                init={{
+                    menubar: false,
+                    statusbar: false,
+                    autoresize_bottom_margin: 30,
+                    content_style: ContentStyles,
+                    plugins: plugins,
+                    toolbar: toolbar,
+                    images_upload_handler: imageHandler,
+                }}
+                onEditorChange={handleChange}
+            />
+            {/* Show placeholder if no content and is readOnly */}
+            {!content && readOnly && <p className="editor-placeholder">There is nothing here...</p>}
+        </StyledEditor>
+    );
 }
 
 export default Editor;
