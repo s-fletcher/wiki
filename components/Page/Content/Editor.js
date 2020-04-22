@@ -3,6 +3,39 @@ import { gql, useMutation } from "@apollo/client";
 import { Editor as TinyMCE } from "@tinymce/tinymce-react";
 import Compress from "compress.js";
 
+// Content styles for editor
+const ContentStyles = `
+    * {
+        font-family: Avenir;
+        color: #1d1d1d;
+    } 
+    *:first-child {
+        margin-top: 0
+    } 
+    body {
+        margin: 0
+    } 
+    pre {
+        font-size: .85em !important; 
+        cursor:auto !important;
+    } 
+    pre * {
+        font-family: Menlo
+    } 
+    h1,h2,h3 {
+        font-weight: 500
+    }
+`;
+
+// Plugins for editor
+const plugins = "autolink lists link image imagetools code autoresize table paste codesample";
+// Editor toolbar
+const toolbar =
+    "h1 h2 h3 bold italic underline strikethrough | " +
+    "bullist numlist outdent indent | " +
+    "image codesample table | " +
+    "removeformat";
+
 const StyledEditor = styled.div`
     .tox-toolbar-overlord {
         visibility: hidden;
@@ -94,6 +127,23 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
         }
     }
 
+    // Compresses and uploads image for TinyMCE image upload
+    function imageHandler(blobInfo, success, failure) {
+        const compress = new Compress();
+        const file = [blobInfo.blob()];
+        compress
+            .compress(file, {
+                size: 2, // the max size in MB, defaults to 2MB
+                quality: 0.75, // the quality of the image, max is 1,
+                maxWidth: 1000, // the max width of the output image, defaults to 1920px
+                maxHeight: 1000, // the max height of the output image, defaults to 1920px
+                resize: true, // defaults to true, set false if you do not want to resize the image width and height
+            })
+            .then((data) => {
+                success("data:" + blobInfo.blob().type + ";base64," + data[0].data);
+            });
+    }
+
     return (
         <StyledEditor>
             <TinyMCE
@@ -104,49 +154,15 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
                     menubar: false,
                     statusbar: false,
                     autoresize_bottom_margin: 30,
-                    content_style:
-                        "* {font-family: Avenir} *:first-child {margin-top: 0} body {margin: 0} pre {font-size: .85em !important; cursor:auto !important;} pre * {font-family: Menlo} h1,h2,h3{font-weight: 500}",
-                    plugins: [
-                        "autolink lists link image imagetools code autoresize table paste codesample",
-                    ],
-                    toolbar:
-                        "h1 h2 h3 | bold italic underline strikethrough | bullist numlist outdent indent | image codesample table | removeformat",
-                    images_upload_handler: function (blobInfo, success, failure) {
-                        console.log(blobInfo.base64());
-                        console.log(blobInfo.blob());
-                        console.log(blobInfo);
-                        const compress = new Compress();
-
-                        // Attach listener
-                        const file = [blobInfo.blob()];
-                        compress
-                            .compress(file, {
-                                size: 2, // the max size in MB, defaults to 2MB
-                                quality: 0.75, // the quality of the image, max is 1,
-                                maxWidth: 1000, // the max width of the output image, defaults to 1920px
-                                maxHeight: 1000, // the max height of the output image, defaults to 1920px
-                                resize: true, // defaults to true, set false if you do not want to resize the image width and height
-                            })
-                            .then((data) => {
-                                console.log(data);
-                                success(
-                                    "data:" + blobInfo.blob().type + ";base64," + data[0].data
-                                );
-                            });
-                    },
-                    codesample_languages: [
-                        { text: "HTML/XML", value: "markup" },
-                        { text: "JavaScript", value: "javascript" },
-                        { text: "CSS", value: "css" },
-                        { text: "PHP", value: "php" },
-                        { text: "Python", value: "python" },
-                    ],
+                    content_style: ContentStyles,
+                    plugins: plugins,
+                    toolbar: toolbar,
+                    images_upload_handler: imageHandler,
                 }}
                 onEditorChange={handleChange}
             />
-            {content.length === 0 && readOnly && (
-                <p className="editor-placeholder">There is nothing here...</p>
-            )}
+            {/* Show placeholder if no content and is readOnly */}
+            {!content && readOnly && <p className="editor-placeholder">There is nothing here...</p>}
         </StyledEditor>
     );
 }
