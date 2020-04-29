@@ -6,6 +6,8 @@ const { NextApp } = require("@keystonejs/app-next");
 const { Text } = require("@keystonejs/fields");
 require("dotenv").config();
 
+console.log(process.env);
+
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
     knexOptions: {
