@@ -26,14 +26,14 @@
         "cross-env": "^7.0.0",
         "dotenv": "^8.2.0",
         "graphql": "^14.6.0",
+        "heroku-self-ping": "^2.0.1",
         "next": "^9.3.6",
         "nprogress": "^0.2.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-icons": "^3.10.0",
         "react-transition-group": "^4.3.0",
-        "styled-components": "^5.1.0",
-        "tcp-ping": "^0.1.1"
+        "styled-components": "^5.1.0"
     },
     "devDependencies": {
         "babel-plugin-styled-components": "^1.10.7"

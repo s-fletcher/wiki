@@ -5,15 +5,8 @@ const { KnexAdapter: Adapter } = require("@keystonejs/adapter-knex");
 const { NextApp } = require("@keystonejs/app-next");
 const { Text } = require("@keystonejs/fields");
 require("dotenv").config();
-var tcpp = require("tcp-ping");
 
-function ping() {
-    tcpp.ping({ address: "localhost", port: 80 }, function (err, data) {
-        console.log(data);
-        console.log(err);
-    });
-}
-setInterval(ping, 5000);
+require("heroku-self-ping").default(`https://${process.env.HEROKU_APP_NAME}.herokuapp.com`);
 
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
