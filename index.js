@@ -6,8 +6,6 @@ const { NextApp } = require("@keystonejs/app-next");
 const { Text } = require("@keystonejs/fields");
 require("dotenv").config();
 
-require("heroku-self-ping").default(`https://${process.env.HEROKU_APP_NAME}.herokuapp.com`);
-
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
     knexOptions: {

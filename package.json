@@ -26,7 +26,6 @@
         "cross-env": "^7.0.0",
         "dotenv": "^8.2.0",
         "graphql": "^14.6.0",
-        "heroku-self-ping": "^2.0.1",
         "next": "^9.3.6",
         "nprogress": "^0.2.0",
         "react": "^16.13.1",
