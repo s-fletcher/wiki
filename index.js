@@ -8,9 +8,12 @@ require("dotenv").config();
 var tcpp = require("tcp-ping");
 
 function ping() {
-    tcpp.ping({ address: process.env.URL, port: 3000 });
+    tcpp.ping({ address: "localhost", port: 80 }, function (err, data) {
+        console.log(data);
+        console.log(err);
+    });
 }
-setInterval(ping, 29 * 60000);
+setInterval(ping, 5000);
 
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
@@ -50,6 +53,6 @@ module.exports = {
         new GraphQLApp(),
         new AdminUIApp({ enableDefaultRoute: false }),
         new NextApp({ dir: "src" }),
-        "dist",
+        "dist"
     ],
 };
