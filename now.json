@@ -7,5 +7,16 @@
             "TEAM_ID": "@team_id",
             "POSTGRES_URI": "@postgres_uri"
         }
-    }
+    },
+    "version": 2,
+    "builds": [
+        {
+            "src": "now.js",
+            "use": "@now/node",
+            "config": {
+                "includeFiles": ["dist/**", "src/**"]
+            }
+        }
+    ],
+    "rewrites": [{ "source": "/(.*)", "destination": "/now.js" }]
 }
