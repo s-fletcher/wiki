@@ -1,6 +1,6 @@
 /**
  * Creates the client to fetch data
- * 
+ *
  * TODO:
  *  - Secure the yoga client
  */
@@ -9,10 +9,7 @@ import fetch from "node-fetch";
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 
 const httpLink = new HttpLink({
-    uri:
-        process.env.NODE_ENV === "development"
-            ? "http://localhost:4444"
-            : process.env.PRISMA_ENDPOINT,
+    uri: "/admin/api",
     credentials: "include",
     fetch,
 });
