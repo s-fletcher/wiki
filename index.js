@@ -5,6 +5,12 @@ const { KnexAdapter: Adapter } = require("@keystonejs/adapter-knex");
 const { NextApp } = require("@keystonejs/app-next");
 const { Text } = require("@keystonejs/fields");
 require("dotenv").config();
+var tcpp = require("tcp-ping");
+
+function ping() {
+    tcpp.ping({ address: process.env.URL, port: 3000 });
+}
+setInterval(ping, 29 * 60000);
 
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
@@ -44,6 +50,6 @@ module.exports = {
         new GraphQLApp(),
         new AdminUIApp({ enableDefaultRoute: false }),
         new NextApp({ dir: "src" }),
-        "dist"
+        "dist",
     ],
 };
