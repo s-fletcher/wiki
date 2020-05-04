@@ -12,15 +12,6 @@ const adapterConfig = {
     knexOptions: {
         connection: process.env.DATABASE_URL,
     },
-    onConnect: async (keystone) => {
-        // Check the users list to see if there are any; if we find none, assume
-        // it's a new database and initialise the demo data set.
-        const users = await keystone.lists.User.adapter.findAll();
-        if (!users.length && process.env.NODE_ENV !== "production") {
-            console.log(`💾 Creating initial data...`);
-            await keystone.createItems({});
-        }
-    },
 };
 
 const keystone = new Keystone({
