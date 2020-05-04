@@ -12,7 +12,7 @@ const adapterConfig = {
         connection: process.env.POSTGRES_URI,
         // "postgres://localhost/wiki-dev"
     },
-    // dropDatabase: true,
+    dropDatabase: true,
 };
 
 const keystone = new Keystone({
