@@ -9,8 +9,7 @@ require("dotenv").config();
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
     knexOptions: {
-        connection: process.env.POSTGRES_URI,
-        // "postgres://localhost/wiki-dev"
+        connection: process.env.DATABASE_URL,
     },
     dropDatabase: true,
 };
