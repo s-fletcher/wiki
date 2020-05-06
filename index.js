@@ -3,7 +3,7 @@ const { GraphQLApp } = require("@keystonejs/app-graphql");
 const { AdminUIApp } = require("@keystonejs/app-admin-ui");
 const { KnexAdapter: Adapter } = require("@keystonejs/adapter-knex");
 const { NextApp } = require("@keystonejs/app-next");
-const {User, Page, Category } = require("./lists");
+const {User, Page, Category } = require("./models");
 const dotenv = require("dotenv");
 
 dotenv.config();
