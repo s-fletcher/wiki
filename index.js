@@ -3,8 +3,10 @@ const { GraphQLApp } = require("@keystonejs/app-graphql");
 const { AdminUIApp } = require("@keystonejs/app-admin-ui");
 const { KnexAdapter: Adapter } = require("@keystonejs/adapter-knex");
 const { NextApp } = require("@keystonejs/app-next");
-const { Text } = require("@keystonejs/fields");
-require("dotenv").config();
+const {User, Page, Category } = require("./lists");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const PROJECT_NAME = "wiki";
 const adapterConfig = {
@@ -19,23 +21,9 @@ const keystone = new Keystone({
     adapter: new Adapter(adapterConfig),
 });
 
-keystone.createList("User", {
-    fields: {
-        name: { type: Text },
-    },
-});
-
-keystone.createList("Page", {
-    fields: {
-        name: { type: Text },
-    },
-});
-
-keystone.createList("Category", {
-    fields: {
-        name: { type: Text },
-    },
-});
+keystone.createList("User", User);
+keystone.createList("Page", Page);
+keystone.createList("Category", Category);
 
 module.exports = {
     keystone,

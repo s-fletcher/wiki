@@ -24,6 +24,7 @@ const CATEGORIES = gql`
         #     }
         # }
         allUsers {
+            url
             name
         }
     }
@@ -73,7 +74,7 @@ function Index() {
             {/* Iterates through categories and displays them */}
             <StyledIndex>
                 {Object.keys(data.allUsers).map(i => {
-                    return <p key={i}>{data.allUsers[i].name}</p>
+                    return <p key={i}>{data.allUsers[i].url + " : " + data.allUsers[i].name}</p>
                 })}
                 {/* {data.categories.length === 0 ? (
                     <p>There is nothing here...</p>
