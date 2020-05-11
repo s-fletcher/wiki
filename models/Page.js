@@ -1,6 +1,5 @@
 const makeUnique = require("./makeUnique");
-const { Slug, Text, Select, Relationship } = require("@keystonejs/fields");
-const { AuthedRelationship } = require("@keystonejs/fields-authed-relationship");
+const { Slug, Text, Select, Relationship, Integer } = require("@keystonejs/fields");
 
 const Page = {
     fields: {
@@ -15,16 +14,20 @@ const Page = {
             options: "INCOMPLETE, TRANSITION, COMPLETE",
             defaultValue: "INCOMPLETE",
         },
-        category: { type: Relationship, ref: "Category.pages" },
+        category: {
+            type: Relationship,
+            ref: "Category.pages",
+        },
         createdBy: {
-            type: AuthedRelationship,
+            type: Relationship,
             ref: "User",
         },
         modifiedBy: {
-            type: AuthedRelationship,
+            type: Relationship,
             ref: "User",
         },
         content: { type: Text },
+        index: { type: Integer, defaultValue: 0 },
     },
 };
 

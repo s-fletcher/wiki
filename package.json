@@ -19,7 +19,6 @@
         "@keystonejs/app-admin-ui": "^5.9.5",
         "@keystonejs/app-graphql": "^5.1.5",
         "@keystonejs/app-next": "^5.1.2",
-        "@keystonejs/fields-authed-relationship": "^1.0.4",
         "@keystonejs/keystone": "^8.0.0",
         "@material-ui/core": "^4.9.12",
         "@tinymce/tinymce-react": "^3.5.0",

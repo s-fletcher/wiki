@@ -12,8 +12,8 @@ import { gql, useMutation } from "@apollo/client";
 import Router from "next/router";
 
 const ADD_PAGE = gql`
-    mutation AddPage($name: String!, $categoryId: ID!) {
-        createPage(data: { name: $name, category: { connect: { id: $categoryId } } }) {
+    mutation AddPage($name: String!, $categoryId: ID) {
+        addPage(name: $name, categoryId: $categoryId) {
             url
         }
     }
@@ -37,7 +37,8 @@ function AddPage({ setLoading, setModal, allCategories }) {
         // Successfully added page
         if (data && !mutationError) {
             setModal(null);
-            Router.push(`/${data.createPage.url}`);
+
+            Router.push(`/${data.addPage.url}`);
         }
     });
 
@@ -58,7 +59,7 @@ function AddPage({ setLoading, setModal, allCategories }) {
         } else {
             addPage({ variables: { name: pageName, categoryId: category } });
             console.log(`Adding ${pageName} to ${category}`);
-            
+
             setError(false);
         }
     }

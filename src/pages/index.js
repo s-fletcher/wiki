@@ -13,11 +13,11 @@ import Category from "../components/Dashboard/Category";
 
 const CATEGORIES = gql`
     {
-        allCategories(orderBy: "id_ASC") {
+        allCategories(orderBy: "index_ASC") {
             id
             name
             emoji
-            pages(orderBy: "id_ASC") {
+            pages(orderBy: "index_ASC") {
                 name
                 url
                 status
