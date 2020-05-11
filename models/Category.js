@@ -1,5 +1,5 @@
 const makeUnique = require("./makeUnique");
-const { Slug, Text } = require("@keystonejs/fields");
+const { Slug, Text, Relationship } = require("@keystonejs/fields");
 
 const Category = {
     fields: {
@@ -9,6 +9,8 @@ const Category = {
             from: "name",
             makeUnique: ({ slug, previousSlug }) => makeUnique(slug, previousSlug),
         },
+        emoji: { type: Text },
+        pages: { type: Relationship, ref: "Page.category", many: true },
     },
 };
 
