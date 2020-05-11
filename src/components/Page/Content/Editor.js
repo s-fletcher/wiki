@@ -90,14 +90,14 @@ const StyledEditor = styled.div`
 `;
 
 const EDIT_CONTENT = gql`
-    mutation EditContent($pageSerial: String!, $userId: ID!, $content: String!) {
-        editContent(pageSerial: $pageSerial, userId: $userId, content: $content) {
+    mutation EditContent($id: ID!, $content: String!) {
+        updatePage(id: $id, data: { content: $content }) {
             content
         }
     }
 `;
 
-function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
+function Editor({ setSaving, readOnly, pageId, content, setContent }) {
     const [editContent, data] = useMutation(EDIT_CONTENT);
     const [unsavedContent, setUnsavedContent] = React.useState(null);
 
@@ -121,7 +121,7 @@ function Editor({ setSaving, readOnly, pageSerial, content, setContent }) {
     // Saves passed variable
     function save(val) {
         editContent({
-            variables: { pageSerial: pageSerial, userId: "demo-user", content: val },
+            variables: { id: pageId, content: val },
         }).then(setSaving(false));
     }
 

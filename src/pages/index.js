@@ -13,19 +13,15 @@ import Category from "../components/Dashboard/Category";
 
 const CATEGORIES = gql`
     {
-        # categories(orderBy: index_ASC) {
-        #     id
-        #     name
-        #     emoji
-        #     pages(orderBy: index_ASC) {
-        #         name
-        #         serializedName
-        #         status
-        #     }
-        # }
-        allUsers {
-            url
+        allCategories(orderBy: "id_ASC") {
+            id
             name
+            emoji
+            pages(orderBy: "id_ASC") {
+                name
+                url
+                status
+            }
         }
     }
 `;
@@ -73,23 +69,20 @@ function Index() {
             <NavBar data={data} refetch={refetch} settings add filter search />
             {/* Iterates through categories and displays them */}
             <StyledIndex>
-                {Object.keys(data.allUsers).map(i => {
-                    return <p key={i}>{data.allUsers[i].url + " : " + data.allUsers[i].name}</p>
-                })}
-                {/* {data.categories.length === 0 ? (
+                {data.allCategories.length === 0 ? (
                     <p>There is nothing here...</p>
                 ) : (
-                    Object.keys(data.categories).map((i) => {
+                    Object.keys(data.allCategories).map((i) => {
                         return (
                             <Category
-                                key={data.categories[i].name}
-                                name={data.categories[i].name}
-                                emoji={data.categories[i].emoji}
-                                pages={data.categories[i].pages}
+                                key={data.allCategories[i].name}
+                                name={data.allCategories[i].name}
+                                emoji={data.allCategories[i].emoji}
+                                pages={data.allCategories[i].pages}
                             />
                         );
                     })
-                )} */}
+                )}
             </StyledIndex>
         </div>
     );

@@ -125,7 +125,7 @@ function Modal({ setModal, modal, timeout, data, refetch}) {
                     {/* Add Page Content */}
                     <CSSTransition in={modal === "addPage"} timeout={timeout} unmountOnExit>
                         <AddPage
-                            categories={data.categories}
+                            allCategories={data.allCategories}
                             setLoading={setLoading}
                             setModal={setModal}
                         />

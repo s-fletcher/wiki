@@ -18,13 +18,13 @@ import { CSSTransition } from "react-transition-group";
 
 const CATEGORIES = gql`
     {
-        categories(orderBy: index_ASC) {
+        allCategories(orderBy: "id_ASC") {
             id
             name
             emoji
-            pages(orderBy: index_ASC) {
+            pages(orderBy: "id_ASC") {
                 name
-                serializedName
+                url
             }
         }
     }

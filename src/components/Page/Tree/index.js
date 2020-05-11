@@ -58,14 +58,14 @@ function Tree({ collapseWidth, fromMenu, setMenu, currentPage, loading, error, d
         <StyledTree>
             <div className="items" id={!fromMenu ? "stickyTree" : ""}>
                 {/* Renders all individual categories with their page children */}
-                {Object.keys(data.categories).map((i) => {
+                {Object.keys(data.allCategories).map((i) => {
                     return (
                         <TreeItem
                             setMenu={setMenu}
-                            key={data.categories[i].name}
-                            name={data.categories[i].name}
-                            emoji={data.categories[i].emoji}
-                            pages={data.categories[i].pages}
+                            key={data.allCategories[i].name}
+                            name={data.allCategories[i].name}
+                            emoji={data.allCategories[i].emoji}
+                            pages={data.allCategories[i].pages}
                             currentPage={currentPage}
                         />
                     );

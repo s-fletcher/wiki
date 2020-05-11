@@ -10,8 +10,9 @@ import Editor from "./Editor";
 import useWarnIfUnsavedChanges from "./useWarnIfUnsavedChanges";
 
 const GET_PAGE = gql`
-    query Page($serializedName: String!) {
-        page(where: { serializedName: $serializedName }) {
+    query Page($url: String!) {
+        allPages(where: { url: $url }) {
+            id
             name
             content
             modifiedBy {
@@ -60,7 +61,7 @@ const StyledContent = styled.div`
 function Content({ edit, setEdit, page, collapseWidth }) {
     // Fetches page data
     const { loading, error, data, refetch } = useQuery(GET_PAGE, {
-        variables: { serializedName: page ? page : "" },
+        variables: { url: page ? page : "" },
     });
     // The content to be rendered and changed
     const [content, setContent] = React.useState("");
@@ -89,7 +90,9 @@ function Content({ edit, setEdit, page, collapseWidth }) {
     // When data is changed after refetch or initial setup, update the content.
     React.useEffect(() => {
         if (data) {
-            setContent(data.page.content);
+            if (data.allPages[0]) {
+                setContent(data.allPages[0].content);
+            }
         }
     }, [data]);
 
@@ -98,7 +101,7 @@ function Content({ edit, setEdit, page, collapseWidth }) {
     /** RETURN Error */
     if (error) return <p>{error.message}</p>;
     /** RETURN 404 when page does not exist */
-    if (!data.page) return <h1 style={{ fontWeight: 400 }}>Page not found...</h1>;
+    if (!data.allPages[0]) return <p style={{ fontWeight: 400 }}>Page not found...</p>;
 
     /**
      * Sets page to editing mode.
@@ -129,16 +132,16 @@ function Content({ edit, setEdit, page, collapseWidth }) {
         <>
             {/* Sets the title of the page as 'Page Name • Wiki'  */}
             <Head>
-                <title>{data.page.name} • Wiki</title>
+                <title>{data.allPages[0].name} • Wiki</title>
             </Head>
             <StyledContent collapseWidth={collapseWidth} id="pageContent">
-                <h1 className="header">{data.page.name}</h1>
+                <h1 className="header">{data.allPages[0].name}</h1>
                 {/* Table of contents */}
                 {renderToC(content)}
                 {/* Editor / viewing */}
                 <Editor
                     readOnly={!edit}
-                    pageSerial={page}
+                    pageId={data.allPages[0].id}
                     content={content}
                     setContent={setContent}
                     setSaving={setSaving}
@@ -158,9 +161,9 @@ function Content({ edit, setEdit, page, collapseWidth }) {
                         updating ? (
                             <p className="message">Updating...</p>
                         ) : (
-                            data.page.modifiedBy && (
+                            data.allPages[0].modifiedBy && (
                                 <p className="message">
-                                    Last edited by {data.page.modifiedBy.name}
+                                    Last edited by {data.allPages[0].modifiedBy.name}
                                 </p>
                             )
                         )
