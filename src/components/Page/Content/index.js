@@ -122,18 +122,18 @@ function Content({ edit, setEdit, page, collapseWidth }) {
             // Executes when transferring into edit mode
             document.getElementById("editButton").innerHTML = "Done";
             setTimeout(() => (document.getElementById("navbar").style.visibility = "hidden"), 100);
-            document.getElementsByClassName("tox-toolbar-overlord")[0].style.visibility = "visible";
-            document.getElementsByClassName("tox-toolbar-overlord")[0].style.opacity = 1;
+            document.getElementsByClassName("tox-editor-header")[0].style.visibility = "visible";
+            document.getElementsByClassName("tox-editor-header")[0].style.opacity = 1;
         } else {
             // Executes when transferring into viewing mode
             document.getElementById("navbar").style.visibility = "visible";
             setTimeout(
                 () =>
-                    (document.getElementsByClassName("tox-toolbar-overlord")[0].style.visibility =
+                    (document.getElementsByClassName("tox-editor-header")[0].style.visibility =
                         "hidden"),
                 200
             );
-            document.getElementsByClassName("tox-toolbar-overlord")[0].style.opacity = 0;
+            document.getElementsByClassName("tox-editor-header")[0].style.opacity = 0;
             document.getElementById("editButton").innerHTML = "Edit";
         }
     }
@@ -144,7 +144,11 @@ function Content({ edit, setEdit, page, collapseWidth }) {
             <Head>
                 <title>{data.allPages[0].name} • Wiki</title>
             </Head>
-            <StyledContent hasContent={content !== ""} collapseWidth={collapseWidth} id="pageContent">
+            <StyledContent
+                hasContent={content !== ""}
+                collapseWidth={collapseWidth}
+                id="pageContent"
+            >
                 <h1 className="header">{data.allPages[0].name}</h1>
                 {/* Table of contents */}
                 {renderToC(content)}

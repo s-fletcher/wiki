@@ -45,7 +45,7 @@ const toolbar =
     "removeformat";
 
 const StyledEditor = styled.div`
-    .tox-toolbar-overlord {
+    .tox-editor-header {
         visibility: hidden;
         position: fixed;
         top: 0;
