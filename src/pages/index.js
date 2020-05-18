@@ -13,13 +13,13 @@ import Category from "../components/Dashboard/Category";
 
 const CATEGORIES = gql`
     {
-        categories(orderBy: index_ASC) {
+        allCategories(orderBy: "index_ASC") {
             id
             name
             emoji
-            pages(orderBy: index_ASC) {
+            pages(orderBy: "index_ASC") {
                 name
-                serializedName
+                url
                 status
             }
         }
@@ -60,8 +60,6 @@ function Index() {
             </div>
         );
 
-        console.log(data.categories.length === 0);
-        
     /** RETURN Dashboard */
     return (
         <div>
@@ -71,17 +69,20 @@ function Index() {
             <NavBar data={data} refetch={refetch} settings add filter search />
             {/* Iterates through categories and displays them */}
             <StyledIndex>
-                {data.categories.length === 0 ? <p>There is nothing here...</p> :
-                Object.keys(data.categories).map((i) => {
-                    return (
-                        <Category
-                            key={data.categories[i].name}
-                            name={data.categories[i].name}
-                            emoji={data.categories[i].emoji}
-                            pages={data.categories[i].pages}
-                        />
-                    );
-                })}
+                {data.allCategories.length === 0 ? (
+                    <p>There is nothing here...</p>
+                ) : (
+                    Object.keys(data.allCategories).map((i) => {
+                        return (
+                            <Category
+                                key={data.allCategories[i].name}
+                                name={data.allCategories[i].name}
+                                emoji={data.allCategories[i].emoji}
+                                pages={data.allCategories[i].pages}
+                            />
+                        );
+                    })
+                )}
             </StyledIndex>
         </div>
     );
