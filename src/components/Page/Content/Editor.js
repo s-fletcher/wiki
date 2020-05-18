@@ -82,8 +82,8 @@ const StyledEditor = styled.div`
         border: none !important;
     }
     .editor-placeholder {
-        margin-top: -68px;
-        margin-bottom: 46px;
+        position: absolute;
+        top: 93px;
         font-style: italic;
         opacity: 0.5;
     }

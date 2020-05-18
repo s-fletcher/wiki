@@ -34,6 +34,12 @@ const StyledContent = styled.div`
         border-bottom: 2px solid ${(props) => props.theme.lightGray};
     }
     .footer {
+        ${(props) =>
+            !props.hasContent &&
+            `
+        position: absolute;
+        top: 162px;
+        `}
         display: flex;
         align-items: baseline;
         .edit {
@@ -91,7 +97,11 @@ function Content({ edit, setEdit, page, collapseWidth }) {
     React.useEffect(() => {
         if (data) {
             if (data.allPages[0]) {
-                setContent(data.allPages[0].content);
+                if (data.allPages[0].content === null) {
+                    setContent("");
+                } else {
+                    setContent(data.allPages[0].content);
+                }
             }
         }
     }, [data]);
@@ -134,7 +144,7 @@ function Content({ edit, setEdit, page, collapseWidth }) {
             <Head>
                 <title>{data.allPages[0].name} • Wiki</title>
             </Head>
-            <StyledContent collapseWidth={collapseWidth} id="pageContent">
+            <StyledContent hasContent={content !== ""} collapseWidth={collapseWidth} id="pageContent">
                 <h1 className="header">{data.allPages[0].name}</h1>
                 {/* Table of contents */}
                 {renderToC(content)}
