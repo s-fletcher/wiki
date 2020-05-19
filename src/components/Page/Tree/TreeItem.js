@@ -58,7 +58,7 @@ const StyledTreeItem = styled.div`
 
 function TreeItem({ setMenu, name, emoji, pages, currentPage }) {
     const [expanded, setExpanded] = React.useState(
-        pages.some((e) => e.serializedName === currentPage)
+        pages.some((e) => e.url === currentPage)
     );
 
     /**
@@ -67,17 +67,17 @@ function TreeItem({ setMenu, name, emoji, pages, currentPage }) {
     function renderChildren() {
         var result = [];
         for (var i in pages) {
-            if (pages[i].serializedName === currentPage)
+            if (pages[i].url === currentPage)
                 // Page is the active page, add active class to it and no click event
                 result.push(
-                    <p key={pages[i].serializedName} className="active item">
+                    <p key={pages[i].url} className="active item">
                         {pages[i].name}
                     </p>
                 );
             else
                 result.push(
-                    <div key={pages[i].serializedName} onClick={() => setMenu && setMenu(false)}>
-                        <Link href="/[page]" as={`/${pages[i].serializedName}`}>
+                    <div key={pages[i].url} onClick={() => setMenu && setMenu(false)}>
+                        <Link href="/[page]" as={`/${pages[i].url}`}>
                             <p className="item">{pages[i].name}</p>
                         </Link>
                     </div>

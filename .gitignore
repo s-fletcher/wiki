@@ -3,5 +3,6 @@ node_modules/
 *.log
 .next/
 .build/
+dist/
 .env
 .now

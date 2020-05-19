@@ -4,7 +4,7 @@
 
 import styled from "styled-components";
 
-const StyledTextField = styled.div`
+const StyledSelect = styled.div`
     margin: 10px 0;
     p {
         font-weight: 700;
@@ -32,9 +32,9 @@ const StyledTextField = styled.div`
     }
 `;
 
-function TextField({ error, required, setValue, label, optional, options }) {
+function Select({ error, required, setValue, label, optional, options }) {
     return (
-        <StyledTextField className="textField">
+        <StyledSelect>
             <p>
                 {label} {optional && <span className="optional">(optional)</span>}
             </p>
@@ -54,8 +54,8 @@ function TextField({ error, required, setValue, label, optional, options }) {
                     );
                 })}
             </select>
-        </StyledTextField>
+        </StyledSelect>
     );
 }
 
-export default TextField;
+export default Select;

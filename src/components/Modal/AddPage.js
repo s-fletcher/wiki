@@ -12,14 +12,14 @@ import { gql, useMutation } from "@apollo/client";
 import Router from "next/router";
 
 const ADD_PAGE = gql`
-    mutation AddPage($name: String!, $userId: ID!, $categoryId: ID) {
-        createPage(name: $name, userId: $userId, categoryId: $categoryId) {
-            serializedName
+    mutation AddPage($name: String!, $categoryId: ID) {
+        addPage(name: $name, categoryId: $categoryId) {
+            url
         }
     }
 `;
 
-function AddPage({ setLoading, setModal, categories }) {
+function AddPage({ setLoading, setModal, allCategories }) {
     const [pageName, setPageName] = React.useState("");
     const [category, setCategory] = React.useState("");
     const [error, setError] = React.useState(false);
@@ -37,7 +37,8 @@ function AddPage({ setLoading, setModal, categories }) {
         // Successfully added page
         if (data && !mutationError) {
             setModal(null);
-            Router.push(`/${data.createPage.serializedName}`);
+
+            Router.push(`/${data.addPage.url}`);
         }
     });
 
@@ -53,12 +54,12 @@ function AddPage({ setLoading, setModal, categories }) {
             setError(true);
             setLoading(false);
         } else if (category === "") {
-            addPage({ variables: { name: pageName, userId: "demo-user" } });
+            addPage({ variables: { name: pageName } });
             setError(false);
         } else {
-            addPage({ variables: { name: pageName, userId: "demo-user", categoryId: category } });
-            console.log(category);
-            
+            addPage({ variables: { name: pageName, categoryId: category } });
+            console.log(`Adding ${pageName} to ${category}`);
+
             setError(false);
         }
     }
@@ -74,7 +75,7 @@ function AddPage({ setLoading, setModal, categories }) {
                     id="pageName"
                 />
                 <Select
-                    options={categories}
+                    options={allCategories}
                     label="Category"
                     optional
                     setValue={setCategory}

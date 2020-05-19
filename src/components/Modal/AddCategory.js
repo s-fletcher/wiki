@@ -1,6 +1,6 @@
 /**
  * Child component for Modal to add a category.
- * 
+ *
  * @param setModal Set's the modal to render in viewport
  * @param refetch Refetch the data to update dashboard
  * @param setLoading Displays the loading icon in button
@@ -11,8 +11,8 @@ import { gql, useMutation } from "@apollo/client";
 
 const ADD_CATEGORY = gql`
     mutation AddCategory($name: String!) {
-        createCategory(name: $name) {
-            serializedName
+        createCategory(data: { name: $name }) {
+            url
         }
     }
 `;
@@ -46,7 +46,7 @@ function AddCategory({ setLoading, setModal, refetch }) {
             setLoading(false);
         } else {
             addCategory({
-                variables: { name: categoryName},
+                variables: { name: categoryName },
             });
             setError(false);
         }

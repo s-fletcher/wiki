@@ -46,8 +46,8 @@ function Category(props) {
                     {Object.keys(props.pages).map(page => {
                         return (
                             <PageItem
-                                key={props.pages[page].serializedName}
-                                url={props.pages[page].serializedName}
+                                key={props.pages[page].url}
+                                url={props.pages[page].url}
                                 name={props.pages[page].name}
                                 status={props.pages[page].status}
                             />

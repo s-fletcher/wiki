@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import animateScrollTo from "animated-scroll-to";
 
 const ToC = styled.div`
     color: rgb(122, 122, 122);
@@ -19,9 +20,15 @@ const ToC = styled.div`
 `;
 
 function goTo(event, tag) {
-    for (var element of document.getElementsByClassName("quill")[0].getElementsByTagName(tag)) {
+    for (var element of document
+        .getElementsByClassName("tox-edit-area__iframe")[0]
+        .contentWindow.document.getElementsByTagName(tag)) {
         if (element.textContent === event.target.textContent) {
-            element.scrollIntoView();
+            var scrollToPosition = element.offsetTop + 200;
+            animateScrollTo(scrollToPosition, {
+                maxDuration: 500,
+                minDuration: 500,
+            });
         }
     }
 }
