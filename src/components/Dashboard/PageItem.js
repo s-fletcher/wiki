@@ -29,7 +29,7 @@ const StyledPageItem = styled.div`
 
 function PageItem(props) {
     function statusColor(status) {
-        if (status === "INCOMPLETE") return props.theme.red;
+        if (status === "INCOMPLETE") return props.theme.green; // green for demo mode
         if (status === "TRANSITION") return props.theme.yellow;
         if (status === "COMPLETE") return props.theme.green;
         else return props.theme.black;
