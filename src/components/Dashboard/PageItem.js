@@ -29,14 +29,15 @@ const StyledPageItem = styled.div`
 
 function PageItem(props) {
     function statusColor(status) {
-        if (status === "INCOMPLETE") return props.theme.green; // green for demo mode
+        if (status === "INCOMPLETE") return props.theme.red;
         if (status === "TRANSITION") return props.theme.yellow;
         if (status === "COMPLETE") return props.theme.green;
         else return props.theme.black;
     }
     return (
         <StyledPageItem>
-            <GoPrimitiveDot className="status" style={{ color: statusColor(props.status) }} />
+            {/* NOTE: Removed status dot for demo mode */}
+            {/* <GoPrimitiveDot className="status" style={{ color: statusColor(props.status) }} /> */}
             <Link href="/[page]" as={`/${props.url}`}>
                 <a>{props.name}</a>
             </Link>
