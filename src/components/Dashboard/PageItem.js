@@ -36,7 +36,8 @@ function PageItem(props) {
     }
     return (
         <StyledPageItem>
-            <GoPrimitiveDot className="status" style={{ color: statusColor(props.status) }} />
+            {/* NOTE: Removed status dot for demo mode */}
+            {/* <GoPrimitiveDot className="status" style={{ color: statusColor(props.status) }} /> */}
             <Link href="/[page]" as={`/${props.url}`}>
                 <a>{props.name}</a>
             </Link>

@@ -140,7 +140,7 @@ function Modal({ setModal, modal, timeout, data, refetch}) {
                     </CSSTransition>
                     {/* Export Data Content */}
                     <CSSTransition in={modal === "exportData"} timeout={timeout} unmountOnExit>
-                        <p>Export Data Content</p>
+                        <p>Exporting data is not available in demo mode</p>
                     </CSSTransition>
                 </Content>
                 <Footer>
